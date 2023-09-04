@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace 반드시 작성! -->
+<mapper namespace="Student">
+    <insert id="save"  parameterType="com.icia.student.dto.StudentDTO">
+        insert into student_table(studentNumber,studentName,studentMajor,studentMobile)
+        values(#{studentNumber},#{studentName},#{studentMajor},#{studentMobile})
+    </insert>
+
+    <select id="list" resultType="stu">
+        select * from student_table
+    </select>
+
+    <select id="detail" parameterType="Long" resultType="com.icia.student.dto.StudentDTO">
+        select * from student_table where id=#{id}
+    </select>
+    <update id="update" parameterType="com.icia.student.dto.StudentDTO" >
+        update student_table  set studentMajor=#{studentMajor}, studentMobile=#{studentMobile} where id=#{id}
+    </update>
+    <delete id="delete" parameterType="Long">
+        delete from student_table where id=#{id}
+    </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
