@@ -36,24 +36,22 @@
             index.jsp를 출력함.
         -->
         <td>
-            <button onclick="doUpdate()">수정</button>
-            <!-- <a href="/update">수정</a> -->
+            <button onclick="update_fn('${student.id}')">수정</button>
         </td>
         <td>
-           <button onclick="doDelete()">삭제</button>
-            <!-- <a href="/delete">삭제</a> -->
+            <button onclick="delete_fn('${student.id}')">삭제</button>
         </td>
     </tr>
     </c:forEach>
     </table>
-
-<script type="text/javascript">
-    function doUpdate() {
-    	location.href = "/update?id=${student.id}";
+</body>
+<script>
+    const update_fn = (id) => {
+        location.href="/update?id="+id;
     }
-    function doDelete() {
-        	location.href = "delete.jsp";
+
+    const delete_fn = (id) => {
+        location.href="/delete?id="+id;
     }
 </script>
-</body>
 </html>

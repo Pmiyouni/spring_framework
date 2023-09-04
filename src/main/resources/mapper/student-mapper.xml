@@ -9,11 +9,11 @@
         values(#{studentNumber},#{studentName},#{studentMajor},#{studentMobile})
     </insert>
 
-    <select id="list" resultType="stu">
+    <select id="findAll" resultType="stu">
         select * from student_table
     </select>
 
-    <select id="detail" parameterType="Long" resultType="com.icia.student.dto.StudentDTO">
+    <select id="findById" parameterType="Long" resultType="com.icia.student.dto.StudentDTO">
         select * from student_table where id=#{id}
     </select>
     <update id="update" parameterType="com.icia.student.dto.StudentDTO" >

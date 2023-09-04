@@ -11,24 +11,24 @@ import java.util.List;
 public class StudentRepository {
     @Autowired
     private SqlSessionTemplate sql;
-    public int save(StudentDTO studentDTO)    {
-        return sql.insert("Student.save",studentDTO);
-        //insert 완료된 숫자만큼 리턴됨, insert 안되면 0이 리턴
+
+    public int save(StudentDTO studentDTO) {
+        return sql.insert("Student.save", studentDTO);
     }
 
-    public List<StudentDTO> list() {
-        return sql.selectList("Student.list");
+    public List<StudentDTO> findAll() {
+        return sql.selectList("Student.findAll");
     }
 
-    public StudentDTO detail(Long id) {
-        return sql.selectOne("Student.detail",id);
+    public StudentDTO findById(Long id) {
+        return sql.selectOne("Student.findById", id);
     }
 
-    public void update(StudentDTO studentDTO1) {
-       sql.update("Student.update",studentDTO1);
+    public void update(StudentDTO studentDTO) {
+        sql.update("Student.update", studentDTO);
     }
 
     public void delete(Long id) {
-        sql.delete("Student.delete",id);
+        sql.delete("Student.delete", id);
     }
 }

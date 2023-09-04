@@ -4,13 +4,8 @@
     <title>Title</title>
 </head>
 <body>
-     <h1>index.jsp</h1>
-     <a href ="/save">save.jsp로 이동</a>
-     <br>
-
-     목록 출력 <br>
-     <form action = "/list" method= "post">
-     <input type="submit" value="출력">
-     </form>
+    <h2>index.jsp</h2>
+    <a href="/save">학생등록</a> <br>
+    <a href="/list">학생목록</a> <br>
 </body>
 </html>
