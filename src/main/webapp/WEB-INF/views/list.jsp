@@ -17,6 +17,7 @@
         <td>수정</td>
         <td>삭제</td>
     </tr>
+
     <c:forEach items="${studentList}" var="student">
     <tr>
         <td>
@@ -37,15 +38,22 @@
         -->
         <td>
             <button onclick="update_fn('${student.id}')">수정</button>
+            <!-- (반복문 내에서 처리)함수 호출하면서 해당 1명의 id를 매개변수로 보냄 -->
+            <!-- 반복문 밖 에서는 사용 불가 --
+            <!-- ${}는 호환성때문에 반드시 ''로 묶어야함
         </td>
         <td>
             <button onclick="delete_fn('${student.id}')">삭제</button>
         </td>
     </tr>
     </c:forEach>
+
     </table>
 </body>
 <script>
+   <!--    function update_fn(id){
+    }  -->
+
     const update_fn = (id) => {
         location.href="/update?id="+id;
     }
