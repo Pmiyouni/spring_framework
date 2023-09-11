@@ -47,4 +47,8 @@ public class BoardService {
     public BoardDTO findByPassword(String boardPass) {
         return boardRepository.findByPassword(boardPass);
     }
+
+    public void updateHits(Long id) {
+        boardRepository.updateHits(id);
+    }
 }

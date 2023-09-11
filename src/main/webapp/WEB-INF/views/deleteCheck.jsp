@@ -9,18 +9,17 @@
 <%@include file="component/header.jsp"%>
 <%@include file="component/nav.jsp"%>
 <form action="/board/delete" method="post" name="deleteForm">
-
-    <input type="hidden" name="id" value="${board.id}">
+    <input type="hidden" name="id" value="${board.id}" readonly>
     <input type="text" name="boardPass" id="board-pass"  placeholder="비밀번호 입력하세요"> <br>
-    <input type="submit" value="확인" onclick="deleteReqFn()">
+    <input type="button" value="확인" onclick="deleteCkFn()">
 </form>
 <%@include file="component/footer.jsp"%>
 
 </body>
 <script>
 
-    const deleteReqFn = () => {
-        const passInput = document.getElementById("board-Pass").value;
+    const deleteCkFn = () => {
+        const passInput = document.getElementById("board-pass").value;
         const passDB = '${board.boardPass}';
         if (passInput == passDB) {
             document.deleteForm.submit();

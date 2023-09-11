@@ -40,6 +40,7 @@ public class BoardController {
 
     @GetMapping
     public String  findById(@RequestParam("id") Long id, Model model) {
+        boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
         return "boardDetail";
@@ -53,25 +54,26 @@ public class BoardController {
         return "boardUpdate";
     }
 
-    //수정을 위한 처리
-    @PostMapping("/")
-    public String update(@ModelAttribute BoardDTO boardDTO) {
-        boardService.update(boardDTO);
+    @PostMapping("/update")
+    public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
+         boardService.update(boardDTO);
+        BoardDTO boardDTO1 = boardService.findById(boardDTO.getId());
+        model.addAttribute("board", boardDTO1);
         return "boardDetail";
     }
+
 
     @PostMapping("/delete")
     public String deleteCheck(@ModelAttribute BoardDTO boardDTO, Model model) {
         System.out.println("boardDTO = " + boardDTO);
         boardService.delete(boardDTO.getId());
-
         return "redirect:/board/";
     }
 
     @GetMapping("/delete")
     public String delete(@RequestParam("id") Long id, Model model) {
         BoardDTO boardDTO=boardService.findById(id);
-        System.out.println("boardDTO = " + boardDTO);
+        //System.out.println("boardDTO = " + boardDTO);
         model.addAttribute("board",boardDTO);
         return "deleteCheck";
     }

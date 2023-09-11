@@ -18,11 +18,11 @@
 <div id="section">
     <form action="/board/save" method="post">
 
-        <input type="text" name="boardWriter" placeholder="작성자"> <br>
-        <input type="text" name="boardPass" placeholder="비밀번호"> <br>
-        <input type="text" name="boardTitle" placeholder="글제목"> <br>
-        <textarea name="boardContents" col="30" rows="10"></textarea><br>
-        <input type="submit" value="글쓰기">
+   &nbsp; &nbsp;    <input type="text" name="boardWriter" placeholder="작성자"> <br>
+   &nbsp; &nbsp;    <input type="text" name="boardPass" placeholder="비밀번호"> <br>
+   &nbsp; &nbsp;    <input type="text" name="boardTitle" placeholder="글제목"> <br>
+   &nbsp; &nbsp;    <textarea name="boardContents" col="30" rows="10"></textarea><br>
+   &nbsp; &nbsp;   <input type="submit" value="글쓰기">
     </form>
 </div>
 <%@include file="component/footer.jsp"%>

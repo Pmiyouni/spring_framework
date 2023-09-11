@@ -22,6 +22,9 @@
     <select id="findByPassword" parameterType="String" resultType="board">
         select * from board_table where boardPass=#{boardPass}
     </select>
+    <update id="updateHits" parameterType="Long">
+        update board_table set boardHits = boardHits + 1 where id=#{id}
+    </update>
 
 
 

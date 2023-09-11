@@ -18,25 +18,27 @@
 <div class="container">
     <div id="board-list">
         <table class="table table-bordered">
-            <tr>
-                <td>번호</td>
-                <td>작성자</td>
-                <td>글제목</td>
-                <td>글내용</td>
-                <td>조회</td>
-
-            </tr>
+         <tr>
+            <td>번호</td>
+            <td>작성자</td>
+            <td>글제목</td>
+            <td>글내용</td>
+            <td>작성일자</td>
+            <td>조회수</td>
+            <td>첨부파일</td>
+            <td>조회</td>
             <c:forEach items="${boardList}" var="board">
                 <tr>
                     <td>${board.id}</td>
                     <td>${board.boardWriter}</td>
                     <td>${board.boardTitle}</td>
-                    <td>${board.boardContents}</td>
+                   <td>${board.boardContents}</td>
+                   <td>${board.createdAt}</td>
+                    <td>${board.boardHits}</td>
+                    <td>${board.fileAttached}</td>
                     <td>
                         <button class="btn btn-info" onclick="detail_fn('${board.id}')">조회</button>
-
                     </td>
-
                 </tr>
             </c:forEach>
         </table>

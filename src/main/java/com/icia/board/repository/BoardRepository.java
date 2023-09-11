@@ -36,4 +36,8 @@ public class BoardRepository {
     public BoardDTO findByPassword(String boardPass) {
         return sql.selectOne("Board.findByPassword",boardPass);
     }
+
+    public void updateHits(Long id) {
+        sql.update("Board.updateHits", id);
+    }
 }
