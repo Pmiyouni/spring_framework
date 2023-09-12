@@ -18,15 +18,27 @@
 <div class="container">
     <div id="board-list">
         <table class="table table-bordered">
+            <tr>
+                <form action="/board/search" class="search-form" method="get">
+                    <select class="search-option" name="key">
+                        <option value="boardTitle" selected>글제목</option>
+                        <option value="boardContents" >글내용</option>
+                        <option value="boardWriter" >작성자</option>
+                    </select>
+
+                    <input type="text" name="query" class="search-input" type="text" value="">
+                    <input type="submit" class="search-button" value="검색">
+                </form>
+            </tr>
          <tr>
             <td>번호</td>
             <td>작성자</td>
             <td>글제목</td>
             <td>글내용</td>
-            <td>작성일자</td>
+            <td>작성일시</td>
             <td>조회수</td>
-            <td>첨부파일</td>
             <td>조회</td>
+
             <c:forEach items="${boardList}" var="board">
                 <tr>
                     <td>${board.id}</td>
@@ -35,13 +47,18 @@
                    <td>${board.boardContents}</td>
                    <td>${board.createdAt}</td>
                     <td>${board.boardHits}</td>
-                    <td>${board.fileAttached}</td>
                     <td>
                         <button class="btn btn-info" onclick="detail_fn('${board.id}')">조회</button>
                     </td>
                 </tr>
             </c:forEach>
-        </table>
+
+
+         </table>
+
+
+
+
     </div>
 </div>
 

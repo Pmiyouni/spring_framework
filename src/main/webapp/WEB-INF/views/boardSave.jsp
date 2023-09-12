@@ -16,13 +16,14 @@
 <%@include file="component/header.jsp"%>
 <%@include file="component/nav.jsp"%>
 <div id="section">
-    <form action="/board/save" method="post">
+    <form action="/board/save" method="post" enctype="multipart/form-data">
 
    &nbsp; &nbsp;    <input type="text" name="boardWriter" placeholder="작성자"> <br>
    &nbsp; &nbsp;    <input type="text" name="boardPass" placeholder="비밀번호"> <br>
    &nbsp; &nbsp;    <input type="text" name="boardTitle" placeholder="글제목"> <br>
    &nbsp; &nbsp;    <textarea name="boardContents" col="30" rows="10"></textarea><br>
-   &nbsp; &nbsp;   <input type="submit" value="글쓰기">
+        <input type="file" name="boardFile"> <br>
+        <input type="submit" value="작성">
     </form>
 </div>
 <%@include file="component/footer.jsp"%>

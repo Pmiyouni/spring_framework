@@ -16,12 +16,12 @@
 <%@include file="component/nav.jsp" %>
 <div id="section">
     <form action="/board/update" method="post" name="updateForm">
-        <input type="hidden" name="id" value="${border.id}" readonly>
-        <input type="text" name="boardPass" id="board-password" placeholder="비밀번호" > <br>
-        <input type="text" name="boardWriter" value="${board.boardWriter}"  readonly> <br>
-        <input type="text" name="boardTitle" value="${board.boardTitle}"  > <br>
-        <textarea name="boardContents" col="30" rows="10">  ${board.boardContents}></textarea><br>
-        <input type="button" value="수정" onclick="update_fn()">
+        &nbsp; &nbsp;    <input type="hidden" name="id" value="${board.id}" readonly> <br>
+        &nbsp; &nbsp;   <input type="text" name="boardPass" id="board-password" placeholder="비밀번호" > <br>
+        &nbsp; &nbsp;   <input type="text" name="boardWriter" value="${board.boardWriter}"  readonly> <br>
+        &nbsp; &nbsp;   <input type="text" name="boardTitle" value="${board.boardTitle}"  > <br>
+        &nbsp; &nbsp;   <textarea name="boardContents" col="30" rows="10">  ${board.boardContents}></textarea><br>
+        &nbsp; &nbsp;   <input type="button" value="수정" onclick="update_fn()">
 
     </form>
 </div>
