@@ -45,7 +45,7 @@ public class BoardService {
             // 게시글 저장 후 id값 활용을 위해 리턴 받음.
             BoardDTO savedBoard = boardRepository.save(boardDTO);
             // 파일만 따로 가져오기
-            MultipartFile boardFile = boardDTO.getBoardFile();
+            MultipartFile boardFile = boardDTO.getBoardFile();//왼쪽 alt+enter
             // 파일 이름 가져오기
             String originalFilename = boardFile.getOriginalFilename();
             System.out.println("originalFilename = " + originalFilename);

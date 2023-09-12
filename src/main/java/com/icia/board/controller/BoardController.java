@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 @Controller
-@RequestMapping("/board") //주요 경로를 미이 셋팅함
+@RequestMapping("/board") //주요 경로를 미리 셋팅함
 public class BoardController {
     @Autowired
     private BoardService boardService;

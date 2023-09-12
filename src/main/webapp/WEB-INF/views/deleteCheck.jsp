@@ -11,10 +11,11 @@
 
 <form action="/board/delete" method="post" name="deleteForm">
 <button onclick="delete_fn()">삭제</button>
+
 <div id="pass-check" style="display:none;">
     <input type="hidden" name="id" value="${board.id}" readonly>
-    <input type="text" name="boardPass" id="board-pass"  placeholder="비밀번호 입력하세요"> <br>
-    <input type="button" value="확인" onclick="pass_check()">
+    <input type="text" id="board-pass" placeholder="비밀번호 입력하세요"> <br>
+    <input type="button" onclick="pass_check()" value="확인">
 </div>
 </form>
 <%@include file="component/footer.jsp"%>
@@ -24,11 +25,12 @@
 
     const delete_fn = () => {
         const passArea = document.getElementById("board-pass");
-        passArea.style.display = "block"
+        passArea.style.display = "block";
     }
     const pass_check = () =>{
     const inputPass = document.getElementById("board-pass").value;
     const passDB = '${board.boardPass}';
+    const id = '${board.id}';
         if (inputPass == passDB) {
             document.deleteForm.submit();
         } else {

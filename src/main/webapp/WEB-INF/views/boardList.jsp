@@ -44,21 +44,15 @@
                     <td>${board.id}</td>
                     <td>${board.boardWriter}</td>
                     <td>${board.boardTitle}</td>
-                   <td>${board.boardContents}</td>
-                   <td>${board.createdAt}</td>
+                    <td>${board.boardContents}</td>
+                    <td>${board.createdAt}</td>
                     <td>${board.boardHits}</td>
                     <td>
                         <button class="btn btn-info" onclick="detail_fn('${board.id}')">조회</button>
                     </td>
                 </tr>
             </c:forEach>
-
-
          </table>
-
-
-
-
     </div>
 </div>
 
