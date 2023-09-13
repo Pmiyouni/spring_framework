@@ -8,7 +8,10 @@
     list-style-type: none;
     margin-left: 20px;
 }
-th, td, th {
+th {
+  text-align: center;
+}
+td {
   text-align: center;
 }
 /* menu-item 클래스가 적용된 요소 내부의 a 태그 요소 */

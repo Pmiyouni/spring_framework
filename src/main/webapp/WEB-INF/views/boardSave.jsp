@@ -5,8 +5,7 @@
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/main.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <%-- ajax를 위한 jquery cdn 삽입 --%>
-    <style>
+     <style>
         #section {
             margin: auto;
         }
@@ -21,7 +20,7 @@
         &nbsp; &nbsp; <input type="text" name="boardWriter" placeholder="작성자를 입력하세요"> <br>
         &nbsp; &nbsp; <input type="text" name="boardPass" placeholder="비밀번호를 입력하세요"> <br>
         &nbsp; &nbsp; <textarea name="boardContents" cols="30" rows="10"></textarea> <br>
-        <input type="file" name="boardFile"> <br>
+          <input type="file" name="boardFile" multiple> <br>
         <input type="submit" value="작성">
     </form>
 </div>

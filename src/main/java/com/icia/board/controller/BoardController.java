@@ -2,7 +2,10 @@ package com.icia.board.controller;
 
 import com.icia.board.dto.BoardDTO;
 import com.icia.board.dto.BoardFileDTO;
+import com.icia.board.dto.CommentDTO;
+import com.icia.board.dto.PageDTO;
 import com.icia.board.service.BoardService;
+import com.icia.board.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,8 @@ import java.util.List;
 public class BoardController {
     @Autowired
     private BoardService boardService;
+    @Autowired
+    private CommentService commentService;
 
 
     // 등록화면 출력
@@ -31,20 +36,37 @@ public class BoardController {
     @PostMapping("/save")
     public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
          boardService.save(boardDTO);
-            return "redirect:/board/";
+        return "redirect:/board/list";
     }
 
     //목록 출력
-    @GetMapping("/")
-    public String findAll(Model model) {
-        List<BoardDTO> boardDTOList = boardService.findAll();
-        model.addAttribute("boardList", boardDTOList);
+    @GetMapping("/list")
+    public String findAll(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                          Model model) {
+
+            List<BoardDTO> boardDTOList = boardService.pagingList(page);
+            System.out.println("boardDTOList = " + boardDTOList);
+            model.addAttribute("boardList", boardDTOList);
+
+            PageDTO pageDTO = boardService.pageNumber(page);
+            model.addAttribute("paging", pageDTO);
         return "boardList";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam("q") String q,
+                         @RequestParam("type") String type,
+                         Model model) {
+        List<BoardDTO> boardDTOList = boardService.searchList(q, type);
+        model.addAttribute("boardList", boardDTOList);
+        return "boardPages/boardList";
     }
 
     //조회
     @GetMapping
-    public String findById(@RequestParam("id") Long id, Model model) {
+    public String findById(@RequestParam("id") Long id,
+                           @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                           Model model) {
         // 조회수 처리
         // 데이터 가져오기
         boardService.updateHits(id);
@@ -52,9 +74,17 @@ public class BoardController {
         model.addAttribute("board", boardDTO);
         // 첨부된 파일이 있다면 파일을 가져옴
         if (boardDTO.getFileAttached() == 1) {
-            BoardFileDTO boardFileDTO = boardService.findFile(id);
-            model.addAttribute("boardFile", boardFileDTO);
+            List<BoardFileDTO> boardFileDTOList = boardService.findFile(id);
+            model.addAttribute("boardFileList", boardFileDTOList);
         }
+
+        List<CommentDTO> commentDTOList = commentService.findAll(id);
+        if (commentDTOList.size() == 0) {
+            model.addAttribute("commentList", null);
+        } else {
+            model.addAttribute("commentList", commentDTOList);
+        }
+        model.addAttribute("page", page);
         return "boardDetail";
     }
 
@@ -81,7 +111,20 @@ public class BoardController {
     @GetMapping("/delete")
     public String delete(@RequestParam("id") Long id) {
         boardService.delete(id);
-        return "redirect:/board/";
+        return "redirect:/board/list";
+    }
+        @GetMapping("/sample")
+        public String sampleData() {
+            for (int i = 1; i <= 20; i++) {
+                BoardDTO boardDTO = new BoardDTO();
+                boardDTO.setBoardWriter("aa");
+                boardDTO.setBoardTitle("title" + i);
+                boardDTO.setBoardContents("contents" + i);
+                boardDTO.setBoardPass("pass" + i);
+                boardService.sampleData(boardDTO);
+            }
+            return "redirect:/board/list";
+        }
     }
 
 
@@ -105,5 +148,5 @@ public class BoardController {
 
 
 
-}
+
 
