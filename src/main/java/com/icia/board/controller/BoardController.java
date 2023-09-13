@@ -77,34 +77,31 @@ public class BoardController {
         //이렇게 해도 동일처리이나 수정이었음에도 조회수를 1 증가시킴으로 좋은 방법은 아님
     }
 
-    //석제 화면
+    //삭제 화면
     @GetMapping("/delete")
-    public String delete(@RequestParam("id") Long id, Model model) {
-        BoardDTO boardDTO = boardService.findById(id);
-        //System.out.println("boardDTO = " + boardDTO);
-        model.addAttribute("board", boardDTO);
-        return "deleteCheck";
-    }
-
-    //삭제처리
-    @PostMapping("/delete")
-    public String deleteCheck(@ModelAttribute BoardDTO boardDTO, Model model) {
-        System.out.println("boardDTO = " + boardDTO);
-        boardService.delete(boardDTO.getId());
+    public String delete(@RequestParam("id") Long id) {
+        boardService.delete(id);
         return "redirect:/board/";
     }
 
-//    @GetMapping("/search")
-//    public ResponseEntity search(@RequestParam("key") String key, @RequestParam("query") String query)
-//    {
-//        System.out.println("key = " + key + ", query = " + query);
-//        HashMap<String, String> map = new HashMap<>();
-//        map.put("k", key);
-//        map.put("q", query);
-//        List<BoardDTO> boardDTOList = boardService.search(map);
-//       // return new ResponseEntity<>(boardDTOList, HttpStatus.OK);
-//        return "boardList";
+
+//    @GetMapping("/delete")
+//    public String delete(@RequestParam("id") Long id, Model model) {
+//        BoardDTO boardDTO = boardService.findById(id);
+//        //System.out.println("boardDTO = " + boardDTO);
+//        model.addAttribute("board", boardDTO);
+//        return "deleteCheck";
 //    }
+//
+//    //삭제처리
+//    @PostMapping("/delete")
+//    public String deleteCheck(@ModelAttribute BoardDTO boardDTO, Model model) {
+//        System.out.println("boardDTO = " + boardDTO);
+//        boardService.delete(boardDTO.getId());
+//        return "redirect:/board/";
+//    }
+
+
 
 
 

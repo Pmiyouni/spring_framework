@@ -92,9 +92,8 @@ public class BoardService {
         boardRepository.updateHits(id);
     }
 
-    public List<BoardDTO> search(HashMap<String, String> map) {
-        return boardRepository.search(map);
-    }
+
+
 
     public BoardFileDTO findFile(Long id) {
         return boardRepository.findFile(id);

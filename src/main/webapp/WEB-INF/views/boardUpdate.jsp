@@ -16,23 +16,20 @@
 <%@include file="component/nav.jsp" %>
 <div id="section">
     <form action="/board/update" method="post" name="updateForm">
-        &nbsp; &nbsp;    <input type="hidden" name="id" value="${board.id}" readonly> <br>
-        &nbsp; &nbsp;   <input type="text" name="boardPass" id="board-password" placeholder="비밀번호" > <br>
-        &nbsp; &nbsp;   <input type="text" name="boardWriter" value="${board.boardWriter}"  readonly> <br>
-        &nbsp; &nbsp;   <input type="text" name="boardTitle" value="${board.boardTitle}"  > <br>
-        &nbsp; &nbsp;   <textarea name="boardContents" col="30" rows="10">  ${board.boardContents}></textarea><br>
-        &nbsp; &nbsp;   <input type="button" value="수정" onclick="update_fn()">
-
+        <input type="text" name="id" value="${board.id}"> <br>
+        <input type="text" name="boardTitle" value="${board.boardTitle}" placeholder="제목을 입력하세요"> <br>
+        <input type="text" name="boardWriter" value="${board.boardWriter}" placeholder="작성자를 입력하세요" readonly> <br>
+        <input type="text" name="boardPass" id="board-pass" placeholder="비밀번호를 입력하세요"> <br>
+        <textarea name="boardContents" cols="30" rows="10">${board.boardContents}</textarea> <br>
+        <input type="button" value="수정" onclick="board_update()">
     </form>
 </div>
-
-<%@include file="component/footer.jsp" %>
 </body>
 <script>
-    const update_fn = () => {
-        const passInput = document.getElementById("board-password").value;
-        const passDB = '${board.boardPass}';
-        if (passInput == passDB) {
+    const board_update = () => {
+        const pass = '${board.boardPass}';
+        const inputPass = document.getElementById("board-pass").value;
+        if (pass == inputPass) {
             document.updateForm.submit();
         } else {
             alert("비밀번호가 일치하지 않습니다!");
