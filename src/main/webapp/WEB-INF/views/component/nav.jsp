@@ -14,6 +14,11 @@
       <a href="/board/list">글목록</a>
     </li>
 
+    <li class="menu-item">
+      <a href="/board/sampleData">샘플데이터</a>
+    </li>
+
+
     <%-- 로그인 계정이 admin일 경우에만 회원목록 링크가 보임 --%>
     <c:if test="${sessionScope.loginEmail == 'admin'}">
       <a href="member/members">관리자 화면</a> <br>

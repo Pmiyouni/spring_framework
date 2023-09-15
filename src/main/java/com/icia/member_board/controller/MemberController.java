@@ -21,6 +21,7 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
+    //회원등록
     @GetMapping("/member/save")
     public String saveForm() {
         return "memberSave";
@@ -28,9 +29,12 @@ public class MemberController {
 
     @PostMapping("/member/save")
     public String save(@ModelAttribute MemberDTO memberDTO) throws IOException {
+        System.out.println("memberDTO = " + memberDTO);
         memberService.save(memberDTO);
-       return "redirect:/member/list";
+        System.out.println("memberDTO = " + memberDTO);
+       return "redirect:/member/login";
     }
+    //이메일 중복 체크
     @PostMapping("/duplicate-check")
     public ResponseEntity duplicateCheck(@RequestParam("memberEmail") String memberEmail) {
         MemberDTO memberDTO = memberService.findByMemberEmail(memberEmail);
@@ -42,6 +46,8 @@ public class MemberController {
         // 'ResponseEntity'는 HTTP 응답을 처리하기 위해 Spring Framework에서 제공하는 클래스
         //특정 상태 코드가 포함된 HTTP 응답을 보내려는 경우 일반적으로 응답 정보를 캡슐화하기 위해 새로운 `ResponseEntity` 객체를 생성
     }
+
+    //로그인
     @GetMapping("/member/login")
     public String loginForm() {
         return "memberLogin";
@@ -56,6 +62,7 @@ public class MemberController {
             // model.addAttribute("member", memberDTO); // x
             // 모델에 이메일 저장
             model.addAttribute("email", memberDTO.getMemberEmail());
+            model.addAttribute("mid", memberDTO.getMId());
             return "boardList";
         } else {
             return "memberLogin";

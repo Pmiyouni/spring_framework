@@ -7,17 +7,8 @@
 </head>
 <body>
 <div id="section">
-    <%-- 검색 창 --%>
-    <div class="container" id="search-area">
-        <form action="/board/list" method="get">
-            <select name="type">
-                <option value="boardTitle">제목</option>
-                <option value="boardWriter">작성자</option>
-            </select>
-            <input type="text" name="q" placeholder="검색어를 입력하세요">
-            <input type="submit" value="검색">
-        </form>
-    </div>
+    <br>
+    <button onclick="board_save()">글 작성</button>
 
     <div class="container" id="list">
         <table class="table table-striped table-hover text-center">
@@ -39,7 +30,18 @@
             </c:forEach>
         </table>
     </div>
-        <button onclick="board_save()">글 작성</button>
+
+    <%-- 검색 창 --%>
+    <div class="container" id="search-area">
+        <form action="/board/list" method="get">
+            <select name="type">
+                <option value="boardTitle">제목</option>
+                <option value="boardWriter">작성자</option>
+            </select>
+            <input type="text" name="q" placeholder="검색어를 입력하세요">
+            <input type="submit" value="검색">
+        </form>
+    </div>
 
             <%-- 페이지 번호 출력 부분 --%>
     <div class="container">

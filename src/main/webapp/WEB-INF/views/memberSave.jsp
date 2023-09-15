@@ -16,6 +16,7 @@
 <%@include file="component/nav.jsp" %>
 <div id="section">
     <form action="/member/save" method="post" enctype="multipart/form-data">
+
         <input type="text" name="memberEmail" id="member-email" onkeyup="email_dup_check()" placeholder="이메일"> <br>
         <%-- onkeyup는 눌렀다 뗐을때, onblur는 포커스해제 즉 입력창을 벗어났을때 p 태그에 결과보여줌 --%>
         <p id="email-dup-check-result"></p>
