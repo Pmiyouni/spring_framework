@@ -12,9 +12,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileStore;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 
 @Service
 public class BoardService {
@@ -22,7 +24,7 @@ public class BoardService {
     private BoardRepository boardRepository;
     @Autowired
     private MemberRepository memberRepository;
-    public void save(BoardDTO boardDTO) throws IOException {
+    public void save(BoardDTO boardDTO, Long memberId1) throws IOException {
         /*
             - 파일 있다.
             1. fileAttached=1, board_table에 저장 후 id값 받아오기
@@ -34,8 +36,10 @@ public class BoardService {
             - 파일 없다.
                 fileAttached=0, 나머지는 기존 방식과 동일
          */
-        MemberDTO memberDTO1 =memberRepository.findByMemberEmail("loginEmail");
-        boardDTO.setWId(memberDTO1.getMId());
+
+        //MemberDTO memberDTO1 =memberRepository.findByMemberEmail(loginEmail1);
+        boardDTO.setWId(memberId1);
+        System.out.println("boardDTO = " + boardDTO);
         if (boardDTO.getBoardFile().get(0).isEmpty()) {
             // 파일 없다.
             boardDTO.setFileAttached(0);
@@ -76,7 +80,7 @@ public class BoardService {
 
     public PageDTO pageNumber(int page) {
         int pageLimit = 5; // 한페이지에 보여줄 글 갯수
-        int blockLimit = 5; // 하단에 보여줄 페이지 번호 갯수
+        int blockLimit = 3; // 하단에 보여줄 페이지 번호 갯수
         // 전체 글 갯수 조회
         int boardCount = boardRepository.boardCount();
         // 전체 페이지 갯수 계산
@@ -98,7 +102,7 @@ public class BoardService {
     }
 
     public List<BoardDTO> pagingList(int page) {
-        int pageLimit = 3; // 한페이지당 보여줄 글 갯수
+        int pageLimit = 5; // 한페이지당 보여줄 글 갯수
         int pagingStart = (page - 1) * pageLimit; // 요청한 페이지에 보여줄 첫번째 게시글의 순서
         Map<String, Integer> pagingParams = new HashMap<>();
         pagingParams.put("start", pagingStart);

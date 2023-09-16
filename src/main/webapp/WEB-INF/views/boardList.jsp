@@ -4,11 +4,31 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+     <link rel="stylesheet" href="/resources/css/main.css">
+    <style>
+            table {
+                margin: auto;
+            }
+        </style>
 </head>
 <body>
+<%@include file="component/header.jsp"%>
+<%@include file="component/nav.jsp"%>
+<h2>회원제 게시판 </h2>
 <div id="section">
     <br>
-    <button onclick="board_save()">글 작성</button>
+
+   <%-- 검색 창 --%>
+       <div class="container" id="search-area">
+           <form action="/board/list" method="get">
+               <select name="type">
+                   <option value="boardTitle">제목</option>
+                   <option value="boardWriter">작성자</option>
+               </select>
+               <input type="text" name="q" placeholder="검색어를 입력하세요">
+               <input type="submit" value="검색">
+           </form>
+       </div>
 
     <div class="container" id="list">
         <table class="table table-striped table-hover text-center">
@@ -31,18 +51,12 @@
         </table>
     </div>
 
-    <%-- 검색 창 --%>
-    <div class="container" id="search-area">
-        <form action="/board/list" method="get">
-            <select name="type">
-                <option value="boardTitle">제목</option>
-                <option value="boardWriter">작성자</option>
-            </select>
-            <input type="text" name="q" placeholder="검색어를 입력하세요">
-            <input type="submit" value="검색">
-        </form>
-    </div>
 
+    <div class="text-center">
+     <button onclick="board_save()">글 작성</button>
+     </div>
+
+        <br>
             <%-- 페이지 번호 출력 부분 --%>
     <div class="container">
         <ul class="pagination justify-content-center">

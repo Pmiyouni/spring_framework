@@ -39,7 +39,7 @@
         const result = document.getElementById("email-dup-check-result");
         $.ajax({
             type: "post",
-            url: "/duplicate-check",
+            url: "/member/duplicate-check",
             data: {
                 memberEmail: email
             },

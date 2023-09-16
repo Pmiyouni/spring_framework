@@ -4,7 +4,7 @@
 
 
 <mapper namespace="Member">
-    <insert id="save" parameterType="member" useGeneratedKeys="true" keyProperty="id">>
+    <insert id="save" parameterType="member" useGeneratedKeys="true" keyProperty="mId">
         insert into member_data_table(memberEmail, memberPassword, memberName, memberMobile)
         values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberMobile})
     </insert>

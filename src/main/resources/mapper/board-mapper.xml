@@ -8,14 +8,16 @@
         values (#{boardWriter}, #{boardTitle}, #{boardContents}, #{fileAttached})
     </insert>
     <insert id="saveFile" parameterType="boardfile">
-        insert into board_addfile_table(addOriginalFileName, addStoredFileName, aId)
-        values (#{addOriginalFileName}, #{addStoredFileName}, #{aId})
+        insert into board_addfile_table(originalFileName, storedFileName, aId)
+        values (#{originalFileName}, #{storedFileName}, #{aId})
     </insert>
     <select id="findAll" resultType="board">
-        select * from board_data_table order by id desc
+        select id, boardTitle, boardWriter,
+        date_format(createdAt, "%y-%m-%d %H:%i:%s") as createdAt, boardHits
+        from board_data_table order by id desc
     </select>
     <select id="pagingList" parameterType="java.util.HashMap" resultType="board">
-        select id, boardWriter, boardTitle,
+        select id, boardTitle, boardWriter,
                date_format(createdAt, "%y-%m-%d %H:%i:%s") as createdAt, boardHits
         from  board_data_table order by id desc limit #{start}, #{limit}
     </select>
@@ -32,7 +34,9 @@
         select count(id) from board_data_table where ${type} like concat('%',#{q},'%')
     </select>
     <select id="findById" parameterType="Long" resultType="board">
-        select * from board_data_table where id = #{id}
+        select id, boardTitle, boardWriter, boardContents,
+        date_format(createdAt, "%y-%m-%d %H:%i:%s") as createdAt, boardHits,
+        fileAttached, wId from board_data_table where id = #{id}
     </select>
     <update id="update" parameterType="board">
         update board_data_table set boardTitle=#{boardTitle}, boardContents=#{boardContents}
@@ -46,7 +50,7 @@
         where id = #{id}
     </update>
     <select id="findFile" parameterType="Long" resultType="boardfile">
-        select * from board_addfile_table where boardId = #{boardId}
+        select * from board_addfile_table where aId=#{aId}
     </select>
 
 </mapper>

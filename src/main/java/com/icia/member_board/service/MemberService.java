@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 
+
 @Service
 public class MemberService {
     @Autowired
@@ -30,7 +31,7 @@ public class MemberService {
                 fileAttached=0, 나머지는 기존 방식과 동일
          */
         if (memberDTO.getMemberProfile().isEmpty()) {
-            // 첨부파일 리스트의 0번째뷰터 파일 없다.
+            // 첨부파일 리스트의 0번째부터 파일 없다.
              //memberDTO.setMemberProfile(null);
              memberRepository.save(memberDTO); //
             System.out.println("memberDTO = " + memberDTO);
@@ -68,17 +69,13 @@ public class MemberService {
         return memberRepository.findByMemberEmail(memberEmail);
     }
 
-    public boolean login(MemberDTO memberDTO) {
+    public MemberDTO login(MemberDTO memberDTO) {
          /*
             1. 이메일, 비밀번호 두 값 모두 일치하는 db 조회결과를 가져옴(조회결과 있으면 로그인 성공)
             2. 이메일로 DB에서 조회해서 서비스에서 비밀번호를 서로 비교하여 일치하면 로그인 성공
          */
         MemberDTO dto = memberRepository.login(memberDTO);
-        if (dto != null) {
-            return true;
-        } else {
-            return false;
-        }
+        return dto;
     }
 
 }

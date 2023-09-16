@@ -11,8 +11,10 @@
     </li>
 
     <li class="menu-item">
-      <a href="/board/list">글목록</a>
-    </li>
+     <c:if test="${sessionScope.loginEmail != null }">
+     <a href="/board/list">글목록</a>
+     </c:if>
+
 
     <li class="menu-item">
       <a href="/board/sampleData">샘플데이터</a>

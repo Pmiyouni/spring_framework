@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -26,8 +27,10 @@ public class BoardController {
         }
 
         @PostMapping("/save")
-        public String save(@ModelAttribute BoardDTO boardDTO) throws IOException {
-            boardService.save(boardDTO);
+        public String save(@ModelAttribute BoardDTO boardDTO, HttpSession session) throws IOException {
+            Long memberId1 = (Long)session.getAttribute("memberId");
+            System.out.println("memberid1 = " + memberId1);
+            boardService.save(boardDTO,memberId1);
             return "redirect:/board/list";
         }
 
@@ -90,40 +93,43 @@ public class BoardController {
         // 데이터 가져오기
         boardService.updateHits(id);
         BoardDTO boardDTO = boardService.findById(id);
+        System.out.println("boardDTO = " + boardDTO);
         model.addAttribute("board", boardDTO);
         // 첨부된 파일이 있다면 파일을 가져옴
         if (boardDTO.getFileAttached() == 1) {
             List<BoardFileDTO> boardFileDTOList = boardService.findFile(id);
             model.addAttribute("boardFileList", boardFileDTOList);
         }
-
-
-        List<CommentDTO> commentDTOList = commnetService.findAll(id);
-        if (commentDTOList.size() == 0) {
-            model.addAttribute("commentList", null);
-        } else {
-            model.addAttribute("commentList", commentDTOList);
-        }
         model.addAttribute("q", q);
         model.addAttribute("type", type);
         model.addAttribute("page", page);
-        return "boardPages/boardDetail";
+        return "boardDetail";
     }
 
-    @GetMapping("/sampleData")
-    public String sampleData() {
-        for (int i = 1; i <= 20; i++) {
-            BoardDTO boardDTO = new BoardDTO();
-            boardDTO.setBoardWriter("aa");
-            boardDTO.setBoardTitle("title" + i);
-            boardDTO.setBoardContents("contents" + i);
-            boardDTO.setWId((int)(Math.ceil((long)i / 5)));
 
-            boardService.sampleData(boardDTO);
+//        List<CommentDTO> commentDTOList = commnetService.findAll(id);
+//        if (commentDTOList.size() == 0) {
+//            model.addAttribute("commentList", null);
+//        } else {
+//            model.addAttribute("commentList", commentDTOList);
+//        }
+//        model.addAttribute("q", q);
+//        model.addAttribute("type", type);
+//        model.addAttribute("page", page);
+//        return "boardPages/boardDetail";
+//    }
+
+        @GetMapping("/sampleData")
+        public String sampleData() {
+            for (int i = 1; i <= 20; i++) {
+                BoardDTO boardDTO1 = new BoardDTO();
+                boardDTO1.setBoardWriter("aa");
+                boardDTO1.setBoardTitle("title" + i);
+                boardDTO1.setBoardContents("contents" + i);
+                boardService.sampleData(boardDTO1);
+            }
+            return "redirect:/board/list";
         }
-        return "redirect:/board/list";
+
+
     }
-
-
-
-}

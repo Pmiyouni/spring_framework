@@ -3,9 +3,19 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/main.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <style>
+    table {
+                        margin: auto;
+                    }
+    </style>
 </head>
 <body>
+<%@include file="component/header.jsp"%>
+<%@include file="component/nav.jsp"%>
 <div id="section">
     <table>
         <tr>
@@ -43,7 +53,7 @@
             </tr>
         </c:if>
     </table>
-    <c:if test="${mid} == ${board.wid}">
+    <c:if test="${board.boardWriter == sessionScope.loginEmail}">
 <%--        <button onclick="board_list()">목록</button>--%>
         <button onclick="board_update()">수정</button>
         <button onclick="board_delete()">삭제</button>

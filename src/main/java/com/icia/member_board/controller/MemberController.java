@@ -7,27 +7,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Controller
-//@RequestMapping("/member")
+@RequestMapping("/member")
 public class MemberController {
     @Autowired
     private MemberService memberService;
 
     //회원등록
-    @GetMapping("/member/save")
+    @GetMapping("/save")
     public String saveForm() {
         return "memberSave";
     }
 
-    @PostMapping("/member/save")
+    @PostMapping("/save")
     public String save(@ModelAttribute MemberDTO memberDTO) throws IOException {
         System.out.println("memberDTO = " + memberDTO);
         memberService.save(memberDTO);
@@ -48,32 +45,35 @@ public class MemberController {
     }
 
     //로그인
-    @GetMapping("/member/login")
+    @GetMapping("/login")
     public String loginForm() {
         return "memberLogin";
     }
 
-    @PostMapping("/member/login")
+    @PostMapping("/login")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model) {
-        boolean loginResult = memberService.login(memberDTO);
-        if (loginResult) {
+         MemberDTO membersaveDTO = memberService.login(memberDTO);
+        if (membersaveDTO != null) {
             // 로그인 성공시 사용자의 이메일을 세션에 저장
-            session.setAttribute("loginEmail", memberDTO.getMemberEmail());
+            session.setAttribute("loginEmail", membersaveDTO.getMemberEmail());
+            session.setAttribute("memberId", membersaveDTO.getMId());
             // model.addAttribute("member", memberDTO); // x
             // 모델에 이메일 저장
-            model.addAttribute("email", memberDTO.getMemberEmail());
-            model.addAttribute("mid", memberDTO.getMId());
-            return "boardList";
+            model.addAttribute("email",membersaveDTO.getMemberEmail());
+
+            return "redirect:/board/list";
         } else {
+            System.out.println("사용자 정보가 없습니다");
             return "memberLogin";
         }
     }
 
-    @GetMapping("/member/logout")
+    @GetMapping("/logout")
     public String logout(HttpSession session) {
         // 아래 방법 중 한가지만 사용
         // 해당 파라미터만 없앨 경우
         session.removeAttribute("loginEmail");
+        session.removeAttribute("memberId");
         // 세션 전체를 없앨 경우
 //        session.invalidate();
         return "redirect:/";
