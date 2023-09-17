@@ -5,6 +5,7 @@ import com.icia.member_board.dto.BoardFileDTO;
 import com.icia.member_board.dto.MemberDTO;
 import com.icia.member_board.dto.PageDTO;
 import com.icia.member_board.repository.BoardRepository;
+import com.icia.member_board.repository.CommentRepository;
 import com.icia.member_board.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ public class BoardService {
     private BoardRepository boardRepository;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private CommentRepository commentRepository;
     public void save(BoardDTO boardDTO, Long memberId1) throws IOException {
         /*
             - 파일 있다.
@@ -178,7 +181,13 @@ public class BoardService {
     }
 
     public List<BoardFileDTO> findFile(Long id) {
+
         return boardRepository.findFile(id);
+    }
+
+    public void boardDelete(Long mId) {
+        boardRepository.boardDelete(mId);
+
     }
 }
 

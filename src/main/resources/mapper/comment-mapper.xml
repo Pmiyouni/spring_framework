@@ -10,4 +10,8 @@
     <select id="findAll" parameterType="Long" resultType="comment">
         select *  from comment_data_table where boardId = #{boardId} order by id desc
     </select>
+    commentDelete
+    <delete id="commentDelete" parameterType="Long">
+        delete from comment_data_table where cId=#{mId}
+    </delete>
 </mapper>

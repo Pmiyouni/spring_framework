@@ -1,6 +1,8 @@
 package com.icia.member_board.controller;
 
 import com.icia.member_board.dto.MemberDTO;
+import com.icia.member_board.service.BoardService;
+import com.icia.member_board.service.CommentService;
 import com.icia.member_board.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,10 @@ import java.util.List;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private BoardService boardService;
+    @Autowired
+    private CommentService commentService;
 
     //회원등록
     @GetMapping("/save")
@@ -30,8 +36,9 @@ public class MemberController {
         System.out.println("memberDTO = " + memberDTO);
         memberService.save(memberDTO);
         System.out.println("memberDTO = " + memberDTO);
-       return "redirect:/member/login";
+        return "redirect:/member/login";
     }
+
     //이메일 중복 체크
     @PostMapping("/duplicate-check")
     public ResponseEntity duplicateCheck(@RequestParam("memberEmail") String memberEmail) {
@@ -53,14 +60,14 @@ public class MemberController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model) {
-         MemberDTO membersaveDTO = memberService.login(memberDTO);
+        MemberDTO membersaveDTO = memberService.login(memberDTO);
         if (membersaveDTO != null) {
             // 로그인 성공시 사용자의 이메일을 세션에 저장
             session.setAttribute("loginEmail", membersaveDTO.getMemberEmail());
             session.setAttribute("memberId", membersaveDTO.getMId());
             // model.addAttribute("member", memberDTO); // x
             // 모델에 이메일 저장
-            model.addAttribute("email",membersaveDTO.getMemberEmail());
+            model.addAttribute("email", membersaveDTO.getMemberEmail());
 
             return "redirect:/board/list";
         } else {
@@ -87,4 +94,33 @@ public class MemberController {
         return "memberList";
     }
 
+    @GetMapping("/member")
+    public String findById(@RequestParam("mId") Long mId, Model model) {
+        MemberDTO memberDTO = memberService.findById(mId);
+        model.addAttribute("member", memberDTO);
+        return "memberDetail";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("mId") Long mId) {
+        memberService.delete(mId);
+        boardService.boardDelete(mId);
+        commentService.commentDelete(mId);
+        return "redirect:/member/members";
+    }
+
+    @GetMapping("/mypage")
+    public String updateForm(HttpSession session, Model model) {
+        // 세션에 저장된 이메일 꺼내기
+        String memberEmail = (String) session.getAttribute("loginEmail");
+        MemberDTO memberDTO = memberService.findByMemberEmail(memberEmail);
+        model.addAttribute("member", memberDTO);
+        return "memberUpdate";
+    }
+
+    @PostMapping("/mypage")
+    public String update(@ModelAttribute MemberDTO memberDTO) {
+        memberService.update(memberDTO);
+        return "memberDetail";
+    }
 }

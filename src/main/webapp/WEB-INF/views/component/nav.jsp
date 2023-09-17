@@ -20,11 +20,15 @@
       <a href="/board/sampleData">샘플데이터</a>
     </li>
 
-    <li class="menu-item">
-    <%-- 로그인 계정이 admin일 경우에만 회원목록 링크가 보임 --%>
-    <c:if test="${sessionScope.loginEmail == 'admin'}">
-      <a href="member/members">관리자 화면</a>
-    </c:if>
+     <li class="menu-item">
+      <c:choose>
+                 <c:when test="${sessionScope.loginEmail == 'admin'}">
+                      <a href="/member/members">관리자 화면</a>
+                 </c:when>
+                  <c:when test="${sessionScope.loginEmail != null}">
+                    <a href="/member/mypage">My page</a>
+                   </c:when>
+             </c:choose>
      </li>
 
     <li class="menu-item" id="login-area">
@@ -38,10 +42,10 @@
   console.log(loginEmail.length);
   if (loginEmail.length != 0 ) {
       if (loginEmail == "admin"){
-          loginArea.innerHTML = "<a href='/member/logout'>logout</a>"
+          loginArea.innerHTML ="<font color=yellow> 관리자 로그인중 </font>"+ "<a href='/member/logout'>logout</a>"
       }else {
-         loginArea.innerHTML = "<a href='/mypage'>" + loginEmail + "님 환영해요!</a>" +
-              "<a href='/member/logout'>logout</a>"
+         loginArea.innerHTML =  "<font color=yellow> loginEmail + 님 환영해요!   </font>"+
+              "<a href='/member/logout'>  logout</a>"
       }
     } else {
     loginArea.innerHTML = "<a href='/member/login'>로그인</a>";

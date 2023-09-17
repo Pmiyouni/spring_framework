@@ -15,32 +15,29 @@
 <body>
 <%@include file="component/header.jsp" %>
 <%@include file="component/nav.jsp" %>
+<h2 align="center">회원 리스트 </h2>
 <div class="container">
     <div id="member-list">
         <table class="table table-bordered">
             <tr>
-                <td>번호</td>
+                <td>회원번호</td>
                 <td>이메일</td>
                 <td>이름</td>
-                <td>전화번호</td>
-                <td>프로필 사진</td>
-                <td>수정</td>
-                <td>삭제</td>
+                 <td>전화번호</td>
+                <td>조회</td>
+                 <td>삭제</td>
             </tr>
             <c:forEach items="${memberList}" var="member">
                 <tr>
-                    <td>${member.id}</td>
+                    <td>${member.mId}</td>
                     <td>${member.memberEmail}</td>
                     <td>${member.memberName}</td>
                     <td>${member.memberMobile}</td>
-                    <td>${member.memberMobile}</td>
-
                     <td>
-                        <button class="btn btn-info" onclick="detail_fn('${member.id}')">조회</button>
-                        <a href="/member?id=${member.id}">수정/a>
-                    </td>
+                    <button class="btn btn-info" onclick="detail_fn('${member.mId}')">조회</button>
+                     </td>
                     <td>
-                        <button class="btn btn-danger" onclick="delete_fn('${member.id}')">삭제</button>
+                        <button class="btn btn-danger" onclick="delete_fn('${member.mId}')">삭제</button>
                     </td>
                 </tr>
             </c:forEach>
@@ -51,12 +48,12 @@
 <%@include file="component/footer.jsp" %>
 </body>
 <script>
-    const detail_fn = (id) => {
-        location.href = "/member?id=" + id;
+    const detail_fn = (mId) => {
+        location.href = "/member/member?mId=" + mId;
     }
 
-    const delete_fn = (id) => {
-        location.href = "/delete?id=" + id;
+    const delete_fn = (mId) => {
+        location.href = "/member/delete?mId=" + mId;
     }
 </script>
 </html>

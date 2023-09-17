@@ -58,7 +58,7 @@ public class MemberService {
                 profileDTO.setStoredFileName(storedFileName);
                 profileDTO.setPId(saveMember.getMId());//저장하고 dto 받아서
                 // 파일 저장용 폴더에 파일 저장 처리
-                String savePath = "c:\\spring_img\\" + storedFileName;
+                String savePath = "c:\\spring_pro_img\\" + storedFileName;
                 profileFile.transferTo(new File(savePath));
                 // board_file_table 저장 처리
                 memberRepository.saveFile(profileDTO); //파일 저장
@@ -81,5 +81,17 @@ public class MemberService {
     public List<MemberDTO> findAll() {
         return memberRepository.findAll();
     }
+    public MemberDTO findById(Long mId) {
+        return memberRepository.findById(mId);
+    }
+
+    public void delete(Long mId) {
+        memberRepository.delete(mId);
+    }
+    public void update(MemberDTO memberDTO) {
+        memberRepository.update(memberDTO);
+
+    }
+
 
 }

@@ -18,8 +18,17 @@
         insert into profile_table(originalFileName, storedFileName, pId)
         values (#{originalFileName}, #{storedFileName}, #{pId})
     </insert>
-    <select id="findAll" resultType="board">
-        select * from member_data_table order by id desc
+    <select id="findAll" resultType="member">
+        select * from member_data_table order by mId desc
     </select>
+    <select id="findById" parameterType="Long" resultType="member">
+        select * from member_data_table where mId=#{mId}
+    </select>
+    <delete id="delete" parameterType="Long">
+        delete from member_data_table where mId=#{mId}
+    </delete>
+    <update id="update" parameterType="member">
+        update member_data_table set memberName=#{memberName}, memberMobile=#{memberMobile} where mId=#{mId}
+    </update>
 
 </mapper>

@@ -111,7 +111,7 @@
 
         $.ajax({
             type: "post",
-            url: "/commnet/save",
+            url: "/comment/save",
             data: {
                 commentWriter: commentWriter,
                 commentContents: commentContents,
