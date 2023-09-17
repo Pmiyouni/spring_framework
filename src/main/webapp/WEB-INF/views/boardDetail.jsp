@@ -5,7 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/main.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <style>
     table {
@@ -53,23 +53,29 @@
             </tr>
         </c:if>
     </table>
+    <br>
+    <div class="text-center">
     <c:if test="${board.boardWriter == sessionScope.loginEmail}">
-<%--        <button onclick="board_list()">목록</button>--%>
+
         <button onclick="board_update()">수정</button>
         <button onclick="board_delete()">삭제</button>
     </c:if>
-
+    </div>
+    <br>
     <div id="pass-check" style="display: none;">
+
         <input type="text" id="board-pass" placeholder="비밀번호 입력하세요">
         <input type="button" onclick="pass_check()" value="확인">
     </div>
 
-    <div id="comment-write-area">
-        <input type="text" id="comment-writer" placeholder="작성자 입력">
-        <input type="text" id="comment-contents" placeholder="내용 입력">
+    <div id="comment-write-area" class="text-center">
+        <input type="hidden" id="member-id" value="${sessionScope.memberId}"><br>
+        <input type="text" id="comment-writer" value="${sessionScope.loginEmail}"><br>
+        <input type="text" id="comment-contents" placeholder="내용 입력"><br>
+
         <button onclick="comment_write()">댓글작성</button>
     </div>
-    <div id="comment-list-area">
+    <div id="comment-list-area" class="text-center">
         <c:choose>
             <c:when test="${commentList == null}">
                 <h3>작성된 댓글이 없습니다.</h3>
@@ -99,16 +105,20 @@
         const commentWriter = document.getElementById("comment-writer").value;
         const commentContents = document.querySelector("#comment-contents").value;
         const boardId = '${board.id}';
+        const cId = document.getElementById("member-id").value;
+
         const result = document.getElementById("comment-list-area");
+
         $.ajax({
             type: "post",
-            url: "/comment/save",
+            url: "/commnet/save",
             data: {
                 commentWriter: commentWriter,
                 commentContents: commentContents,
-                boardId: boardId
+                boardId: boardId,
+                cId: cId
             },
-            success: function (res) {
+            success: function(res) {
                 console.log("리턴값: ", res);
                 let output = "<table id=\"comment-list\">\n" +
                     "    <tr>\n" +

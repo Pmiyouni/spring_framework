@@ -18,5 +18,8 @@
         insert into profile_table(originalFileName, storedFileName, pId)
         values (#{originalFileName}, #{storedFileName}, #{pId})
     </insert>
+    <select id="findAll" resultType="board">
+        select * from member_data_table order by id desc
+    </select>
 
 </mapper>

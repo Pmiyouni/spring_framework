@@ -14,7 +14,7 @@ public class BoardRepository {
     @Autowired
     private SqlSessionTemplate sql;
 
-    public BoardDTO save(BoardDTO boardDTO) {
+    public BoardDTO save(BoardDTO boardDTO ) {
         sql.insert("Board.save", boardDTO);
         System.out.println("insert 후 boardDTO = " + boardDTO);
         return boardDTO;
@@ -63,6 +63,6 @@ public class BoardRepository {
     }
 
     public List<BoardFileDTO> findFile(Long aId) {
-        return sql.selectOne("Board.findFile",aId);
+        return sql.selectList("Board.findFile",aId);
     }
 }

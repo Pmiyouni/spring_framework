@@ -45,6 +45,7 @@ public class BoardService {
             boardDTO.setFileAttached(0);
 
             boardRepository.save(boardDTO);
+
         } else {
             // 파일 있다.
             boardDTO.setFileAttached(1);
@@ -66,11 +67,12 @@ public class BoardService {
                 boardFileDTO.setOriginalFileName(originalFilename);
                 boardFileDTO.setStoredFileName(storedFileName);
                 boardFileDTO.setAId(savedBoard.getId());
+                System.out.println("boardFileDTO = " + boardFileDTO);
                 // 파일 저장용 폴더에 파일 저장 처리
                 String savePath = "c:\\spring_img\\" + storedFileName;
                 boardFile.transferTo(new File(savePath));
                 // board_file_table 저장 처리
-                boardRepository.saveFile(boardFileDTO);
+                boardRepository.saveFile(boardFileDTO);                
             }
         }
     }
@@ -115,7 +117,7 @@ public class BoardService {
         searchParam.put("q", q);
         searchParam.put("type", type);
 
-        int pageLimit = 3; // 한페이지당 보여줄 글 갯수
+        int pageLimit = 5; // 한페이지당 보여줄 글 갯수
         int pagingStart = (page - 1) * pageLimit; // 요청한 페이지에 보여줄 첫번째 게시글의 순서
         searchParam.put("start", pagingStart);
         searchParam.put("limit", pageLimit);
@@ -124,7 +126,7 @@ public class BoardService {
     }
 
     public PageDTO searchPageNumber(String q, String type, int page) {
-        int pageLimit = 3; // 한페이지에 보여줄 글 갯수
+        int pageLimit = 5; // 한페이지에 보여줄 글 갯수
         int blockLimit = 3; // 하단에 보여줄 페이지 번호 갯수
         Map<String, String> pagingParams = new HashMap<>();
         pagingParams.put("q", q);
@@ -151,6 +153,7 @@ public class BoardService {
 
     public BoardDTO findById(Long id) {
          BoardDTO boardDTO = boardRepository.findById(id);
+        System.out.println("boardDTO  service findbyid= " + boardDTO);
          return boardDTO;
 
     }

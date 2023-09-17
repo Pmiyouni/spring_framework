@@ -2,7 +2,7 @@ package com.icia.member_board.controller;
 
 import com.icia.member_board.dto.*;
 import com.icia.member_board.service.BoardService;
-import com.icia.member_board.service.CommnentService;
+import com.icia.member_board.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +18,7 @@ public class BoardController {
         @Autowired
         private BoardService boardService;
         @Autowired
-        private CommnentService commnetService;
+        private CommentService commnetService;
 
 
         @GetMapping("/save")
@@ -29,7 +29,8 @@ public class BoardController {
         @PostMapping("/save")
         public String save(@ModelAttribute BoardDTO boardDTO, HttpSession session) throws IOException {
             Long memberId1 = (Long)session.getAttribute("memberId");
-            System.out.println("memberid1 = " + memberId1);
+            System.out.println(memberId1);
+            System.out.println("boardDTO controller = " + boardDTO);
             boardService.save(boardDTO,memberId1);
             return "redirect:/board/list";
         }
@@ -92,32 +93,27 @@ public class BoardController {
         // 조회수 처리
         // 데이터 가져오기
         boardService.updateHits(id);
+        System.out.println("id = " + id);
         BoardDTO boardDTO = boardService.findById(id);
-        System.out.println("boardDTO = " + boardDTO);
+        System.out.println("boardDTO  controller findbyid= " + boardDTO);
         model.addAttribute("board", boardDTO);
         // 첨부된 파일이 있다면 파일을 가져옴
         if (boardDTO.getFileAttached() == 1) {
             List<BoardFileDTO> boardFileDTOList = boardService.findFile(id);
             model.addAttribute("boardFileList", boardFileDTOList);
         }
+
+        List<CommentDTO> commentDTOList = commnetService.findAll(id);
+        if (commentDTOList.size() == 0) {
+            model.addAttribute("commentList", null);
+        } else {
+            model.addAttribute("commentList", commentDTOList);
+        }
         model.addAttribute("q", q);
         model.addAttribute("type", type);
         model.addAttribute("page", page);
         return "boardDetail";
     }
-
-
-//        List<CommentDTO> commentDTOList = commnetService.findAll(id);
-//        if (commentDTOList.size() == 0) {
-//            model.addAttribute("commentList", null);
-//        } else {
-//            model.addAttribute("commentList", commentDTOList);
-//        }
-//        model.addAttribute("q", q);
-//        model.addAttribute("type", type);
-//        model.addAttribute("page", page);
-//        return "boardPages/boardDetail";
-//    }
 
         @GetMapping("/sampleData")
         public String sampleData() {

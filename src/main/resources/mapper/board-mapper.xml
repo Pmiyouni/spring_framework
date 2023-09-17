@@ -4,8 +4,8 @@
 
 <mapper namespace="Board">
     <insert id="save" parameterType="board" useGeneratedKeys="true" keyProperty="id">
-        insert into board_data_table(boardWriter, boardTitle, boardContents, fileAttached)
-        values (#{boardWriter}, #{boardTitle}, #{boardContents}, #{fileAttached})
+        insert into board_data_table(boardWriter, boardTitle, boardContents, fileAttached,wId)
+        values (#{boardWriter}, #{boardTitle}, #{boardContents}, #{fileAttached},#{wId})
     </insert>
     <insert id="saveFile" parameterType="boardfile">
         insert into board_addfile_table(originalFileName, storedFileName, aId)
@@ -13,7 +13,8 @@
     </insert>
     <select id="findAll" resultType="board">
         select id, boardTitle, boardWriter,
-        date_format(createdAt, "%y-%m-%d %H:%i:%s") as createdAt, boardHits
+        date_format(createdAt, "%y-%m-%d %H:%i:%s") as createdAt,
+        boardHits, wId, fileAttached
         from board_data_table order by id desc
     </select>
     <select id="pagingList" parameterType="java.util.HashMap" resultType="board">

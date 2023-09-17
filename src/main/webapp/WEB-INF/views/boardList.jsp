@@ -60,6 +60,9 @@
             <%-- 페이지 번호 출력 부분 --%>
     <div class="container">
         <ul class="pagination justify-content-center">
+            <li class="page-item">
+              <a class="page-link" href="/board/list?page=1&q=${q}&type=${type}">[처음]</a>
+            </li>
             <c:choose>
                 <%-- 현재 페이지가 1페이지면 이전 글자만 보여줌 --%>
                 <c:when test="${paging.page<=1}">
@@ -105,6 +108,9 @@
                     </li>
                 </c:otherwise>
             </c:choose>
+             <li class="page-item">
+                   <a class="page-link" href="/board/list?page=${paging.maxPage}&q=${q}&type=${type}">[마지막]</a>
+              </li>
         </ul>
     </div>
 </div>
