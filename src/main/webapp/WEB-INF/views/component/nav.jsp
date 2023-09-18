@@ -42,10 +42,11 @@
   console.log(loginEmail.length);
   if (loginEmail.length != 0 ) {
       if (loginEmail == "admin"){
-          loginArea.innerHTML ="<font color=yellow> 관리자 로그인중 </font>"+ "<a href='/member/logout'>logout</a>"
+          loginArea.innerHTML =" 관리자 로그인 중 "+ "<a href='/member/logout'>logout</a>"
       }else {
-         loginArea.innerHTML =  "<font color=yellow> loginEmail + 님 환영해요!   </font>"+
+         loginArea.innerHTML =  loginEmail + "님 환영해요!</a>" +
               "<a href='/member/logout'>  logout</a>"
+
       }
     } else {
     loginArea.innerHTML = "<a href='/member/login'>로그인</a>";

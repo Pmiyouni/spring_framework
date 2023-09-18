@@ -11,10 +11,11 @@ import java.util.List;
 @Getter
 @ToString
 public class MemberDTO {
-    private Long mId;
+    private Long id;
     private String memberEmail;
     private String memberPassword;
     private String memberName;
     private String memberMobile;
     private MultipartFile  memberProfile;
+    private int fileAttached;
 }

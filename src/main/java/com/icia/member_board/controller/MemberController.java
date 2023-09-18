@@ -1,6 +1,7 @@
 package com.icia.member_board.controller;
 
 import com.icia.member_board.dto.MemberDTO;
+import com.icia.member_board.dto.ProfileDTO;
 import com.icia.member_board.service.BoardService;
 import com.icia.member_board.service.CommentService;
 import com.icia.member_board.service.MemberService;
@@ -64,7 +65,7 @@ public class MemberController {
         if (membersaveDTO != null) {
             // 로그인 성공시 사용자의 이메일을 세션에 저장
             session.setAttribute("loginEmail", membersaveDTO.getMemberEmail());
-            session.setAttribute("memberId", membersaveDTO.getMId());
+            session.setAttribute("memberId", membersaveDTO.getId());
             // model.addAttribute("member", memberDTO); // x
             // 모델에 이메일 저장
             model.addAttribute("email", membersaveDTO.getMemberEmail());
@@ -90,22 +91,23 @@ public class MemberController {
     @GetMapping("/members")
     public String findAll(Model model) {
         List<MemberDTO> memberDTOList = memberService.findAll();
+        System.out.println("findall memberDTOList = " + memberDTOList);
         model.addAttribute("memberList", memberDTOList);
         return "memberList";
     }
 
     @GetMapping("/member")
-    public String findById(@RequestParam("mId") Long mId, Model model) {
-        MemberDTO memberDTO = memberService.findById(mId);
+    public String findById(@RequestParam("id") Long id, Model model) {
+        MemberDTO memberDTO = memberService.findById(id);
         model.addAttribute("member", memberDTO);
         return "memberDetail";
     }
 
     @GetMapping("/delete")
-    public String delete(@RequestParam("mId") Long mId) {
-        memberService.delete(mId);
-        boardService.boardDelete(mId);
-        commentService.commentDelete(mId);
+    public String delete(@RequestParam("id") Long id) {
+        memberService.delete(id);
+        boardService.boardDelete(id);
+        commentService.commentDelete(id);
         return "redirect:/member/members";
     }
 
@@ -119,8 +121,12 @@ public class MemberController {
     }
 
     @PostMapping("/mypage")
-    public String update(@ModelAttribute MemberDTO memberDTO) {
-        memberService.update(memberDTO);
+    public String update(@ModelAttribute MemberDTO memberDTO, Model model) {
+        model.addAttribute("member", memberDTO);
+        if (memberDTO.getFileAttached() == 1) {
+            ProfileDTO profile =memberService.findFile(memberDTO.getId());
+            model.addAttribute("profile", profile);
+        }
         return "memberDetail";
     }
 }

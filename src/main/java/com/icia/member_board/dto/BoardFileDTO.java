@@ -9,7 +9,7 @@ import lombok.ToString;
     @ToString
     public class BoardFileDTO {
         private Long id;
-        private Long aId;
+        private Long aid;
         private String originalFileName;
         private String storedFileName;
     }

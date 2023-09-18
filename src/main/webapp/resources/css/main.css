@@ -35,12 +35,13 @@ td {
 }
 
 #login-area {
-     display: flex;
-     align-items: center;
-
+    display: flex;
+    align-items: center;
+    color: yellow;
 }
 
-a {
-   color : white;
-}
+
+
+
+
 

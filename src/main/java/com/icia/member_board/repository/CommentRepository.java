@@ -20,7 +20,12 @@ public class CommentRepository {
         return sql.selectList("Comment.findAll", boardId);
     }
 
-    public void commentDelete(Long mId) {
-        sql.delete("Comment.commentDelete",mId);
+    public void commentDelete(Long id) {
+        sql.delete("Comment.commentDelete",id);
+    }
+
+    public void commentDelete1(Long id) {
+        sql.delete("Comment.commentDelete1",id);
+
     }
 }

@@ -28,19 +28,15 @@
                 <td>프로필 사진</td>
             </tr>
             <tr>
-                <td>${member.mId}</td>
+                <td>${member.id}</td>
                 <td>${member.memberEmail}</td>
                 <td>${member.memberPassword}</td>
                 <td>${member.memberName}</td>
                 <td>${member.memberMobile}</td>
 
                 <td>
-                  <c:if test="${board.memberProfile} != null">
-                 <c:forEach items="${proFileList}" var="proFile">
                  <img src="${pageContext.request.contextPath}/upload1/${proFile.storedFileName}"
                    alt="" width="100" height="100">
-                   </c:forEach>
-                  </c:if>
                   </td>
             </tr>
         </table>

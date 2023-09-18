@@ -29,15 +29,15 @@
             </tr>
             <c:forEach items="${memberList}" var="member">
                 <tr>
-                    <td>${member.mId}</td>
+                    <td>${member.id}</td>
                     <td>${member.memberEmail}</td>
                     <td>${member.memberName}</td>
                     <td>${member.memberMobile}</td>
                     <td>
-                    <button class="btn btn-info" onclick="detail_fn('${member.mId}')">조회</button>
+                    <button class="btn btn-info" onclick="detail_fn('${member.id}')">조회</button>
                      </td>
                     <td>
-                        <button class="btn btn-danger" onclick="delete_fn('${member.mId}')">삭제</button>
+                        <button class="btn btn-danger" onclick="delete_fn('${member.id}')">삭제</button>
                     </td>
                 </tr>
             </c:forEach>
@@ -48,12 +48,12 @@
 <%@include file="component/footer.jsp" %>
 </body>
 <script>
-    const detail_fn = (mId) => {
-        location.href = "/member/member?mId=" + mId;
+    const detail_fn = (id) => {
+        location.href = "/member/member?id=" + id;
     }
 
-    const delete_fn = (mId) => {
-        location.href = "/member/delete?mId=" + mId;
+    const delete_fn = (id) => {
+        location.href = "/member/delete?id=" + id;
     }
 </script>
 </html>

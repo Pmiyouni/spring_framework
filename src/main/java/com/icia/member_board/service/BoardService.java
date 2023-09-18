@@ -41,7 +41,7 @@ public class BoardService {
          */
 
         //MemberDTO memberDTO1 =memberRepository.findByMemberEmail(loginEmail1);
-        boardDTO.setWId(memberId1);
+        boardDTO.setWid(memberId1);
         System.out.println("boardDTO = " + boardDTO);
         if (boardDTO.getBoardFile().get(0).isEmpty()) {
             // 파일 없다.
@@ -69,7 +69,7 @@ public class BoardService {
                 BoardFileDTO boardFileDTO = new BoardFileDTO();
                 boardFileDTO.setOriginalFileName(originalFilename);
                 boardFileDTO.setStoredFileName(storedFileName);
-                boardFileDTO.setAId(savedBoard.getId());
+                boardFileDTO.setAid(savedBoard.getId());
                 System.out.println("boardFileDTO = " + boardFileDTO);
                 // 파일 저장용 폴더에 파일 저장 처리
                 String savePath = "c:\\spring_img\\" + storedFileName;
@@ -185,8 +185,8 @@ public class BoardService {
         return boardRepository.findFile(id);
     }
 
-    public void boardDelete(Long mId) {
-        boardRepository.boardDelete(mId);
+    public void boardDelete(Long id) {
+        boardRepository.boardDelete(id);
 
     }
 }

@@ -33,15 +33,18 @@ public class MemberRepository {
     public List<MemberDTO> findAll() {
         return sql.selectList("Member.findAll");
     }
-    public MemberDTO findById(Long mId) {
-        return sql.selectOne("Member.findById", mId);
+    public MemberDTO findById(Long id) {
+        return sql.selectOne("Member.findById", id);
     }
 
-    public void delete(Long mId) {
-        sql.delete("Member.delete", mId);
+    public void delete(Long id) {
+        sql.delete("Member.delete", id);
     }
     public void update(MemberDTO memberDTO) {
-          sql.update("Member.update", memberDTO);
+        sql.update("Member.update", memberDTO);
+    }
 
+    public ProfileDTO findFile(Long id) {
+        return sql.selectOne("Member.findFile", id);
     }
 }

@@ -3,19 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Board">
-    <insert id="save" parameterType="board" useGeneratedKeys="true" keyProperty="id">
-        insert into board_data_table(boardWriter, boardTitle, boardContents, fileAttached,wId)
-        values (#{boardWriter}, #{boardTitle}, #{boardContents}, #{fileAttached},#{wId})
+    <insert id="save" parameterType="board"   useGeneratedKeys="true" keyProperty="id">
+        insert into board_data_table(boardWriter, boardTitle, boardContents, fileAttached,wid)
+        values (#{boardWriter}, #{boardTitle}, #{boardContents}, #{fileAttached},#{wid})
     </insert>
     <insert id="saveFile" parameterType="boardfile">
-        insert into board_addfile_table(originalFileName, storedFileName, aId)
-        values (#{originalFileName}, #{storedFileName}, #{aId})
+        insert into board_addfile_table(originalFileName, storedFileName, aid)
+        values (#{originalFileName}, #{storedFileName}, #{aid})
     </insert>
     <select id="findAll" resultType="board">
-        select id, boardTitle, boardWriter,
-        date_format(createdAt, "%y-%m-%d %H:%i:%s") as createdAt,
-        boardHits, wId, fileAttached
-        from board_data_table order by id desc
+        select *  from board_data_table order by id desc
     </select>
     <select id="pagingList" parameterType="java.util.HashMap" resultType="board">
         select id, boardTitle, boardWriter,
@@ -37,7 +34,7 @@
     <select id="findById" parameterType="Long" resultType="board">
         select id, boardTitle, boardWriter, boardContents,
         date_format(createdAt, "%y-%m-%d %H:%i:%s") as createdAt, boardHits,
-        fileAttached, wId from board_data_table where id = #{id}
+        fileAttached, wid from board_data_table where id = #{id}
     </select>
     <update id="update" parameterType="board">
         update board_data_table set boardTitle=#{boardTitle}, boardContents=#{boardContents}
@@ -51,13 +48,11 @@
         where id = #{id}
     </update>
     <select id="findFile" parameterType="Long" resultType="boardfile">
-        select * from board_addfile_table where aId=#{aId}
+        select * from board_addfile_table where aid=#{aid}
     </select>
-    <delete id="delete" parameterType="Long">
-        delete from board_data_table where id=#{id}
-    </delete>
+
     <delete id="boardDelete" parameterType="Long">
-    delete from board_data_table where wId=#{mId}
+    delete from board_data_table where wid=#{id}
      </delete>
 
 </mapper>

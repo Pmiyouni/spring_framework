@@ -4,14 +4,18 @@
 
 <mapper namespace="Comment">
     <insert id="save" parameterType="comment">
-        insert into comment_data_table(commentWriter, commentContents, boardId)
-        values (#{commentWriter}, #{commentContents}, #{boardId})
+        insert into comment_data_table(commentWriter, commentContents, boardId,cid)
+        values (#{commentWriter}, #{commentContents}, #{boardId}, #{cid})
     </insert>
+
     <select id="findAll" parameterType="Long" resultType="comment">
         select *  from comment_data_table where boardId = #{boardId} order by id desc
     </select>
-    commentDelete
+
     <delete id="commentDelete" parameterType="Long">
-        delete from comment_data_table where cId=#{mId}
+        delete from comment_data_table where cid=#{id}
+    </delete>
+    <delete id="commentDelete1" parameterType="Long">
+        delete from comment_data_table where boardId = #{id}
     </delete>
 </mapper>

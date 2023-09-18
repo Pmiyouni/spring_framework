@@ -56,17 +56,12 @@
     <br>
     <div class="text-center">
     <c:if test="${board.boardWriter == sessionScope.loginEmail}">
-
         <button onclick="board_update()">수정</button>
         <button onclick="board_delete()">삭제</button>
     </c:if>
     </div>
     <br>
-    <div id="pass-check" style="display: none;">
 
-        <input type="text" id="board-pass" placeholder="비밀번호 입력하세요">
-        <input type="button" onclick="pass_check()" value="확인">
-    </div>
 
     <div id="comment-write-area" class="text-center">
         <input type="hidden" id="member-id" value="${sessionScope.memberId}"><br>
@@ -105,7 +100,7 @@
         const commentWriter = document.getElementById("comment-writer").value;
         const commentContents = document.querySelector("#comment-contents").value;
         const boardId = '${board.id}';
-        const cId = document.getElementById("member-id").value;
+        const cid = document.getElementById("member-id").value;
 
         const result = document.getElementById("comment-list-area");
 
@@ -116,7 +111,7 @@
                 commentWriter: commentWriter,
                 commentContents: commentContents,
                 boardId: boardId,
-                cId: cId
+                cid: cid
             },
             success: function(res) {
                 console.log("리턴값: ", res);
@@ -135,8 +130,9 @@
                 }
                 output += "</table>";
                 result.innerHTML = output;
-                document.getElementById("comment-writer").value = "";
+
                 document.getElementById("comment-contents").value = "";
+                document.getElementById("member-id").value = "";
             },
             error: function () {
                 console.log("댓글 작성 실패");
@@ -154,7 +150,7 @@
         location.href = "/board/update?id=" + id;
     }
     const board_delete = () =>{
-        const id = '${board.id};
+        const id = '${board.id}';
         location.href = "/board/delete?id=" + id;
     }
 

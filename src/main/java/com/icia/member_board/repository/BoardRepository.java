@@ -62,11 +62,11 @@ public class BoardRepository {
         sql.update("Board.updateHits", id);
     }
 
-    public List<BoardFileDTO> findFile(Long aId) {
-        return sql.selectList("Board.findFile",aId);
+    public List<BoardFileDTO> findFile(Long aid) {
+        return sql.selectList("Board.findFile",aid);
     }
 
-    public void boardDelete(Long mId) {
-        sql.delete("Board.boardDelete",mId);
+    public void boardDelete(Long id) {
+        sql.delete("Board.boardDelete",id);
     }
 }

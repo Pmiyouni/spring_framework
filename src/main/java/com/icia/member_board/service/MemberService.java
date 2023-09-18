@@ -33,12 +33,13 @@ public class MemberService {
          */
         if (memberDTO.getMemberProfile().isEmpty()) {
             // 첨부파일 리스트의 0번째부터 파일 없다.
-             //memberDTO.setMemberProfile(null);
-             memberRepository.save(memberDTO); //
-            System.out.println("memberDTO = " + memberDTO);
+             //
+            memberDTO.setFileAttached(0);
+             memberRepository.save(memberDTO);
+             System.out.println("memberDTO = " + memberDTO);
         } else {
             // 파일 있다.
-            //memberDTO.setFileAttached(1); //1 셋팅
+            memberDTO.setFileAttached(1);
             // 게시글 저장 후 id값 활용을 위해 리턴 받음.
             MemberDTO saveMember= memberRepository.save(memberDTO); //저장
 
@@ -56,7 +57,7 @@ public class MemberService {
                 ProfileDTO profileDTO = new ProfileDTO();
                 profileDTO.setOriginalFileName(originalFilename);
                 profileDTO.setStoredFileName(storedFileName);
-                profileDTO.setPId(saveMember.getMId());//저장하고 dto 받아서
+                profileDTO.setPid(saveMember.getId());//저장하고 dto 받아서
                 // 파일 저장용 폴더에 파일 저장 처리
                 String savePath = "c:\\spring_pro_img\\" + storedFileName;
                 profileFile.transferTo(new File(savePath));
@@ -81,17 +82,18 @@ public class MemberService {
     public List<MemberDTO> findAll() {
         return memberRepository.findAll();
     }
-    public MemberDTO findById(Long mId) {
-        return memberRepository.findById(mId);
+    public MemberDTO findById(Long id) {
+        return memberRepository.findById(id);
     }
 
-    public void delete(Long mId) {
-        memberRepository.delete(mId);
+    public void delete(Long id) {
+        memberRepository.delete(id);
     }
     public void update(MemberDTO memberDTO) {
-        memberRepository.update(memberDTO);
-
+       memberRepository.update(memberDTO);
     }
-
+    public ProfileDTO findFile(Long id) {
+        return memberRepository.findFile(id);
+    }
 
 }

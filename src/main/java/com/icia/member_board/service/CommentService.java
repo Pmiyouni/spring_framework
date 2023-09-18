@@ -20,7 +20,11 @@ public class CommentService {
         return commentRepository.findAll(boardId);
     }
 
-    public void commentDelete(Long mId) {
-        commentRepository.commentDelete(mId);
+    public void commentDelete(Long id) {
+        commentRepository.commentDelete(id);
+    }
+
+    public void commentDelete1(Long id) {
+        commentRepository.commentDelete1(id);
     }
 }

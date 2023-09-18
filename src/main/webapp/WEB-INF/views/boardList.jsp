@@ -14,7 +14,7 @@
 <body>
 <%@include file="component/header.jsp"%>
 <%@include file="component/nav.jsp"%>
-<h2>회원제 게시판 </h2>
+<h2 align="center">회원제 게시판 </h2>
 <div id="section">
     <br>
 
@@ -29,6 +29,9 @@
                <input type="submit" value="검색">
            </form>
        </div>
+    <div class="text-end">
+        <button onclick="board_order()">조회순으로 보기 </button>
+    </div>
 
     <div class="container" id="list">
         <table class="table table-striped table-hover text-center">
@@ -119,6 +122,12 @@
 <script>
     const board_save = () => {
         location.href = "/board/save";
+    }
+    const board_order = () => {
+        const page = '${page}';
+        const q = 'order';
+        const type = '${type}';
+        location.href = "/board/order?page=" + page + "&q=" + q + "&type=" + type;
     }
 
 </script>

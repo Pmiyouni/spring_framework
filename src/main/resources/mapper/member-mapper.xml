@@ -4,9 +4,9 @@
 
 
 <mapper namespace="Member">
-    <insert id="save" parameterType="member" useGeneratedKeys="true" keyProperty="mId">
-        insert into member_data_table(memberEmail, memberPassword, memberName, memberMobile)
-        values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberMobile})
+    <insert id="save"  parameterType="member"  useGeneratedKeys="true" keyProperty="id">
+        insert into member_data_table(memberEmail, memberPassword, memberName, memberMobile,fileAttached)
+        values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberMobile},#{fileAttached})
     </insert>
     <select id="findByEmail" parameterType="String" resultType="member">
         select * from member_data_table where memberEmail=#{memberEmail}
@@ -15,20 +15,19 @@
         select * from member_data_table where memberEmail=#{memberEmail} and memberPassword=#{memberPassword}
     </select>
     <insert id="saveFile" parameterType="profile">
-        insert into profile_table(originalFileName, storedFileName, pId)
-        values (#{originalFileName}, #{storedFileName}, #{pId})
+        insert into profile_table(originalFileName, storedFileName, pid)
+        values (#{originalFileName}, #{storedFileName}, #{pid})
     </insert>
     <select id="findAll" resultType="member">
-        select * from member_data_table order by mId desc
+        select * from member_data_table order by id desc
     </select>
     <select id="findById" parameterType="Long" resultType="member">
-        select * from member_data_table where mId=#{mId}
+        select * from member_data_table where id=#{id}
     </select>
     <delete id="delete" parameterType="Long">
-        delete from member_data_table where mId=#{mId}
+        delete from member_data_table where id=#{id}
     </delete>
-    <update id="update" parameterType="member">
-        update member_data_table set memberName=#{memberName}, memberMobile=#{memberMobile} where mId=#{mId}
-    </update>
-
+    <select id="findFile" parameterType="Long" resultType="profile">
+        select * from profile_table where id = #{id}
+    </select>
 </mapper>

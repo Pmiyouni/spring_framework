@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-//@RequestMapping("/comment")
+
 public class CommentController {
     @Autowired
     private CommentService commentService;
@@ -26,4 +26,5 @@ public class CommentController {
         List<CommentDTO> commentDTOList = commentService.findAll(commentDTO.getBoardId());
         return new ResponseEntity<>(commentDTOList, HttpStatus.OK);
     }
+
 }

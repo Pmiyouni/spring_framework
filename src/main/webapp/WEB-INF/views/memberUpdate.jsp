@@ -16,7 +16,7 @@
 <%@include file="component/nav.jsp" %>
 <div id="section">
     <form action="/member/mypage" method="post" name="updateForm">
-        <input type="hidden" name="mId" value="${member.mId}">
+        <input type="hidden" name="id" value="${member.id}">
         <input class="form-control" type="text" name="memberEmail" value="${member.memberEmail}" placeholder="이메일"
                readonly> <br>
         <input type="text" name="memberPassword" id="member-password" placeholder="비밀번호"> <br>
