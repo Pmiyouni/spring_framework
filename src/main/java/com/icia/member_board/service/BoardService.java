@@ -128,6 +128,7 @@ public class BoardService {
         return boardRepository.searchList(searchParam);
     }
 
+
     public PageDTO searchPageNumber(String q, String type, int page) {
         int pageLimit = 5; // 한페이지에 보여줄 글 갯수
         int blockLimit = 3; // 하단에 보여줄 페이지 번호 갯수
@@ -188,6 +189,15 @@ public class BoardService {
     public void boardDelete(Long id) {
         boardRepository.boardDelete(id);
 
+    }
+
+    public List<BoardDTO> pagingList2(int page) {
+        int pageLimit = 5; // 한페이지당 보여줄 글 갯수
+        int pagingStart = (page - 1) * pageLimit; // 요청한 페이지에 보여줄 첫번째 게시글의 순서
+        Map<String, Integer> pagingParams = new HashMap<>();
+        pagingParams.put("start", pagingStart);
+        pagingParams.put("limit", pageLimit);
+        return boardRepository.pagingList2(pagingParams);
     }
 }
 

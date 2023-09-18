@@ -54,5 +54,10 @@
     <delete id="boardDelete" parameterType="Long">
     delete from board_data_table where wid=#{id}
      </delete>
+    <select id="pagingList2" parameterType="java.util.HashMap" resultType="board">
+        select id, boardTitle, boardWriter,
+               date_format(createdAt, "%y-%m-%d %H:%i:%s") as createdAt, boardHits
+        from  board_data_table order by boardHits desc limit #{start}, #{limit}
+    </select>
 
 </mapper>

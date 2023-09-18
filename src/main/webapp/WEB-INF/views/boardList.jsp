@@ -29,10 +29,10 @@
                <input type="submit" value="검색">
            </form>
        </div>
-    <div class="text-end">
+    <div class="container" id="order">
         <button onclick="board_order()">조회순으로 보기 </button>
     </div>
-
+    <br>
     <div class="container" id="list">
         <table class="table table-striped table-hover text-center">
             <tr>
@@ -127,7 +127,7 @@
         const page = '${page}';
         const q = 'order';
         const type = '${type}';
-        location.href = "/board/order?page=" + page + "&q=" + q + "&type=" + type;
+        location.href = "/board/list?page=" + page + "&q=" + q + "&type=" + type;
     }
 
 </script>

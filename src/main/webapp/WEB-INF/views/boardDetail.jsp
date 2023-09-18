@@ -59,7 +59,11 @@
         <button onclick="board_update()">수정</button>
         <button onclick="board_delete()">삭제</button>
     </c:if>
+
+    <c:if test="${sessionScope.loginEmail == 'admin'}">
+        <button onclick="board_delete()">삭제</button>
     </div>
+    </c:if>
     <br>
 
 

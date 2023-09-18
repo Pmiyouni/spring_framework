@@ -69,4 +69,8 @@ public class BoardRepository {
     public void boardDelete(Long id) {
         sql.delete("Board.boardDelete",id);
     }
+
+    public List<BoardDTO> pagingList2(Map<String, Integer> pagingParams) {
+        return sql.selectList("Board.pagingList2", pagingParams);
+    }
 }
