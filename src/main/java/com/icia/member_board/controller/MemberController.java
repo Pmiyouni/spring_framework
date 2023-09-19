@@ -1,6 +1,8 @@
 package com.icia.member_board.controller;
 
+import com.icia.member_board.dto.BoardDTO;
 import com.icia.member_board.dto.MemberDTO;
+import com.icia.member_board.dto.PageDTO;
 import com.icia.member_board.dto.ProfileDTO;
 import com.icia.member_board.service.BoardService;
 import com.icia.member_board.service.CommentService;
@@ -63,13 +65,9 @@ public class MemberController {
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session, Model model) {
         MemberDTO membersaveDTO = memberService.login(memberDTO);
         if (membersaveDTO != null) {
-            // 로그인 성공시 사용자의 이메일을 세션에 저장
             session.setAttribute("loginEmail", membersaveDTO.getMemberEmail());
             session.setAttribute("memberId", membersaveDTO.getId());
-            // model.addAttribute("member", memberDTO); // x
-            // 모델에 이메일 저장
             model.addAttribute("email", membersaveDTO.getMemberEmail());
-
             return "redirect:/board/list";
         } else {
             System.out.println("사용자 정보가 없습니다");
@@ -89,10 +87,33 @@ public class MemberController {
     }
 
     @GetMapping("/members")
-    public String findAll(Model model) {
+    public String members(Model model) {
         List<MemberDTO> memberDTOList = memberService.findAll();
-        System.out.println("findall memberDTOList = " + memberDTOList);
         model.addAttribute("memberList", memberDTOList);
+        return "redirect:/member/list";
+    }
+
+    @GetMapping("/list")
+    public String findAll(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                          @RequestParam(value = "q", required = false, defaultValue = "") String q,
+                          @RequestParam(value = "type", required = false, defaultValue = "memberName") String type,
+                          Model model) {
+
+        List<MemberDTO> memberDTOList = null;
+        PageDTO pageDTO = null;
+
+        if(q.equals("")) {
+            memberDTOList = memberService.pagingList(page);
+            pageDTO =memberService.pageNumber(page);
+        } else {
+            memberDTOList = memberService.searchList(q, type, page);
+            pageDTO = memberService.searchPageNumber(q, type, page);
+        }
+        model.addAttribute("memberList", memberDTOList);
+        model.addAttribute("paging", pageDTO);
+        model.addAttribute("q", q);
+        model.addAttribute("type", type);
+        model.addAttribute("page", page);
         return "memberList";
     }
 

@@ -37,5 +37,18 @@
     <update id="remove" parameterType="Long">
         update member_data_table set mstatus = "1" where id = #{id}
     </update>
+    <select id="pagingList" parameterType="java.util.HashMap" resultType="member">
+        select * from member_data_table order by id desc limit #{start}, #{limit}
+    </select>
+    <select id="count" resultType="Integer">
+        select count(id) from member_data_table
+    </select>
+    <select id="search" parameterType="java.util.HashMap" resultType="member">
+        select * from member_data_table where ${type} like concat('%',#{q},'%') order by id desc
+            limit #{start}, #{limit}
+    </select>
+    <select id="searchCount" parameterType="java.util.HashMap" resultType="Integer">
+        select count(id) from member_data_table where ${type} like concat('%',#{q},'%')
+    </select>
 
 </mapper>

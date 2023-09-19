@@ -10,10 +10,7 @@
 <%@include file="component/header.jsp" %>
 <%@include file="component/nav.jsp" %>
 <br>
-<h2>회원제 게시판</h2>
-
-<%--로그인이메일: ${sessionScope.loginEmail} <br>--%>
-
+<h1 class="text-center"> 회원제 게시판입니다</h1>
 <%@include file="component/footer.jsp" %>
 </body>
 </html>

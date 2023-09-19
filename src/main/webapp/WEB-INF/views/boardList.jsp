@@ -15,12 +15,13 @@
 <body>
 <%@include file="component/header.jsp"%>
 <%@include file="component/nav.jsp"%>
-<h2 align="center">회원제 게시판 </h2>
+<h2 class="text-center">회원제 게시판 </h2>
 <div id="section">
     <br>
 
    <%-- 검색 창 --%>
        <div class="container" id="search-area">
+
            <form action="/board/list" method="get">
                <select name="type">
                    <option value="boardTitle">제목</option>
@@ -31,10 +32,9 @@
                <select name="ord">
                    <option value="createdAt">작성일시(최근)순</option>
                    <option value="boardHits">높은조회수순</option>
-               </select>
-                &nbsp; &nbsp; &nbsp;
+               </select>                &nbsp; &nbsp; &nbsp;
 
-               <input type="submit" value="검색조회">
+               <input type="submit" value="검색조회" class="btn btn-primary">
            </form>
        </div>
 
