@@ -6,6 +6,10 @@
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/main.css">
      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+     <!-- 부트스트랩 CSS only -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+   	<!-- 부트스트랩 JavaScript Bundle with Popper -->
+   	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
     <style>
     table {
@@ -21,6 +25,7 @@
 <div class="col">
 
 	<h1 class="text-center">게시글 조회</h1>
+
 	<br>
     <table  class="table table-striped" style="width:50%">
         <tr>
@@ -58,11 +63,18 @@
             </tr>
         </c:if>
     </table>
+    <div class="row">
+    <div class="col text-center" id="count">
+    <button id="heart" type="button" class="btn btn-danger">좋아요!!</button>
+    						<i id="heart" class="bi bi-suit-heart"></i>
+    						<span id="fcnt"></span>
+    					</div>
+
     <br>
     <div class="text-center">
     <c:if test="${board.boardWriter == sessionScope.loginEmail}">
-        <button type="button" class="btn btn-primary" onclick="board_update()">수정</button>
-        <button type="button" class="btn btn-danger"  onclick="board_delete()">삭제</button>
+        <button  class="btn btn-primary" onclick="board_update()">수정</button>
+        <button  class="btn btn-danger"  onclick="board_delete()">삭제</button>
     </c:if>
 
     <c:if test="${sessionScope.loginEmail == 'admin'}">
@@ -102,7 +114,7 @@
 </div>
 </body>
 <script>
-    const comment_write = () => {
+        const comment_write = () => {
         const commentWriter = document.getElementById("comment-writer").value;
         const commentContents = document.querySelector("#comment-contents").value;
         const boardId = '${board.id}';
@@ -158,6 +170,56 @@
         location.href = "/board/delete?id=" + id;
     }
 
+
+    //좋아요 추가
+    $("#count").on("click", ".btn btn-danger", function(){
+         const fid = '${board.id}';
+         const uid = '${board.wid}';
+		if(confirm("좋아요! 추가하실래요?")){
+		$.ajax({
+        					type:"get",
+        					url:"/favorite/insert",
+        					data:{
+        					fid : fid,
+        					uid : uid
+        					},
+        					success:function(data){
+        						if(data.ckcnt != 0){
+        						alert(data);
+
+                             	$("#heart").addClass("bi-suit-heart-fill");
+                            	}else{
+                            	alert("좋아요 중복채크 불가!!");
+                            	}
+                            	$("#fcnt").html(data.fcnt);
+        					}
+        				});
+        			}
+        		}
+        	});
+
+ //좋아요 삭제
+    $("#count").on("click", ".btn btn-danger", function(){
+         const fid = '${board.id}';
+         const uid = '${board.wid}';
+		if(confirm("좋아요! 삭제하실래요?")){
+		$.ajax({
+        					type:"get",
+        					url:"/favorite/delete",
+        					data:{
+        					fid : fid,
+        					uid : uid
+        					},
+        					success:function(data){
+        						if(data.ckcnt == 0){
+                            	$("#heart").removeClass("bi-suit-heart-fill").addClass("bi-suit-heart");
+                                 	}
+                            	$("#fcnt").html(data.fcnt);
+        					}
+        				});
+        			}
+        		}
+        	});
 
 
 </script>

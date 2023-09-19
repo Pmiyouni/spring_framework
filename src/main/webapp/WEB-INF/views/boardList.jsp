@@ -10,6 +10,9 @@
             table {
                 margin: auto;
             }
+            .page-link{
+            color: gray;
+            }
         </style>
 </head>
 <body>
@@ -18,7 +21,7 @@
 
  <div class="row my-5" d="section" >
         <div class="col">
-        <h2 class="text-center mb-5">회원 게시판 </h2>
+        <h1 class="text-center mb-5"> 게시판 </h1>
     <br>
 
    <%-- 검색 창 --%>
@@ -67,7 +70,7 @@
 
 
     <div class="text-center">
-     <button onclick="board_save()">글 작성</button>
+     <button class="btn btn-warning" onclick="board_save()">글 작성</button>
      </div>
 
         <br>

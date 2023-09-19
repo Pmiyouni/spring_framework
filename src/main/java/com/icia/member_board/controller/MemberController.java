@@ -36,9 +36,7 @@ public class MemberController {
 
     @PostMapping("/save")
     public String save(@ModelAttribute MemberDTO memberDTO) throws IOException {
-        System.out.println("memberDTO = " + memberDTO);
         memberService.save(memberDTO);
-        System.out.println("memberDTO = " + memberDTO);
         return "redirect:/member/login";
     }
 
@@ -51,8 +49,7 @@ public class MemberController {
         } else {
             return new ResponseEntity<>(HttpStatus.CONFLICT); //409, 충돌
         }
-        // 'ResponseEntity'는 HTTP 응답을 처리하기 위해 Spring Framework에서 제공하는 클래스
-        //특정 상태 코드가 포함된 HTTP 응답을 보내려는 경우 일반적으로 응답 정보를 캡슐화하기 위해 새로운 `ResponseEntity` 객체를 생성
+
     }
 
     //로그인

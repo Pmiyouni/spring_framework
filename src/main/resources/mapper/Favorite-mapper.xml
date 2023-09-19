@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="Favorite">
+    <insert id="insert"  parameterType="favorite"  useGeneratedKeys="true" keyProperty="fid">
+        insert into favorite_table(fid,uid) values(#{fid}, #{uid})
+    </insert>
+    <select id="fcount" parameterType="favorite" resultType="int">
+        select count(*) from favorite_table where fid=#{fid}
+    </select>
+    <select id="ckcount" parameterType="favorite" resultType="int">
+        select count(*) from favorite_table where fid=#{fid} and uid=#{uid}
+    </select>
+    <delete id="delete" parameterType="favorite" >
+        delete from favorite_table where fid=#{fid} and uid=#{uid}
+    </delete>
+</mapper>
