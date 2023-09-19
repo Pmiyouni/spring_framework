@@ -4,8 +4,9 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/resources/css/main.css">
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/resources/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
         table {
             margin: auto;
