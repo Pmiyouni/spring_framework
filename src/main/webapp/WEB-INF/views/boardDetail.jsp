@@ -16,29 +16,34 @@
 <body>
 <%@include file="component/header.jsp"%>
 <%@include file="component/nav.jsp"%>
-<div id="section">
-    <table>
+
+<div class="row" d="section">
+<div class="col">
+
+	<h1 class="text-center">게시글 조회</h1>
+	<br>
+    <table  class="table table-striped" style="width:50%">
         <tr>
-            <th>id</th>
+            <th>번호</th>
             <td>${board.id}</td>
         <tr>
-            <th>writer</th>
+            <th>작성자</th>
             <td>${board.boardWriter}</td>
         </tr>
         <tr>
-            <th>date</th>
+            <th>작성일시</th>
             <td>${board.createdAt}</td>
         </tr>
         <tr>
-            <th>hits</th>
+            <th>조회수</th>
             <td>${board.boardHits}</td>
         </tr>
         <tr>
-            <th>title</th>
+            <th>글제목</th>
             <td>${board.boardTitle}</td>
         </tr>
         <tr>
-            <th>contents</th>
+            <th>글내용</th>
             <td>${board.boardContents}</td>
         </tr>
         <c:if test="${board.fileAttached == 1}">
@@ -56,8 +61,8 @@
     <br>
     <div class="text-center">
     <c:if test="${board.boardWriter == sessionScope.loginEmail}">
-        <button onclick="board_update()">수정</button>
-        <button onclick="board_delete()">삭제</button>
+        <button type="button" class="btn btn-primary" onclick="board_update()">수정</button>
+        <button type="button" class="btn btn-danger"  onclick="board_delete()">삭제</button>
     </c:if>
 
     <c:if test="${sessionScope.loginEmail == 'admin'}">
@@ -65,16 +70,13 @@
     </div>
     </c:if>
     <br>
-
-
     <div id="comment-write-area" class="text-center">
         <input type="hidden" id="member-id" value="${sessionScope.memberId}"><br>
-        <input type="text" id="comment-writer" value="${sessionScope.loginEmail}"><br>
-        <input type="text" id="comment-contents" placeholder="내용 입력"><br>
-
-        <button onclick="comment_write()">댓글작성</button>
+        <input type="text" id="comment-writer" size="30"  value="${sessionScope.loginEmail}"><br>
+        <input type="text" id="comment-contents" size="30" placeholder="내용 입력"><br>
+         <button class="btn btn-primary" onclick="comment_write()">댓글작성</button>
     </div>
-    <div id="comment-list-area" class="text-center">
+    <div id="comment-list-area" class="text-center mt-5">
         <c:choose>
             <c:when test="${commentList == null}">
                 <h3>작성된 댓글이 없습니다.</h3>

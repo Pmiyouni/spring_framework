@@ -15,29 +15,33 @@
 <body>
 <%@include file="component/header.jsp"%>
 <%@include file="component/nav.jsp"%>
-<h2 class="text-center">회원제 게시판 </h2>
-<div id="section">
+
+ <div class="row my-5" d="section" >
+        <div class="col">
+        <h2 class="text-center mb-5">회원 게시판 </h2>
     <br>
 
    <%-- 검색 창 --%>
        <div class="container" id="search-area">
 
-           <form action="/board/list" method="get">
-               <select name="type">
+           <form action="/board/list" method="get" class="col-4">
+           <div class="input-group">
+               <select class="form-select" name="type">
                    <option value="boardTitle">제목</option>
                    <option value="boardWriter">작성자</option>
                </select>
-               <input type="text" name="q" placeholder="검색어를 입력하세요">
-
-               <select name="ord">
+               <input type="text" class="form-control"   name="q" placeholder="검색어를 입력하세요">
+        </div>
+               <select  class="form-select" name="ord">
                    <option value="createdAt">작성일시(최근)순</option>
                    <option value="boardHits">높은조회수순</option>
-               </select>                &nbsp; &nbsp; &nbsp;
+               </select>
 
-               <input type="submit" value="검색조회" class="btn btn-primary">
+               <input type="submit" value="검색조회" class=" form-control btn btn-primary">
            </form>
        </div>
-
+ </div>
+  </div>
     <br>
     <div class="container" id="list">
         <table class="table table-striped table-hover text-center">

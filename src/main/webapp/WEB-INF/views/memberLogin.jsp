@@ -11,11 +11,26 @@
 <body>
 <%@include file="component/header.jsp"%>
 <%@include file="component/nav.jsp"%>
-<form action="/member/login" method="post">
-    <input type="text" name="memberEmail" placeholder="이메일 입력하세요"> <br>
-    <input type="text" name="memberPassword" placeholder="비밀번호 입력하세요"> <br>
-    <input type="submit" value="로그인">
+<div  class="row my-5 justify-content-center">
+<div class="col-md-4">
+ <h1 class="text-center mb-3">로그인</h1>
+ <div id="section">
+<form action="/member/login" method="post" class="card p-3">
+<div class="input-group my-2">
+        <span class="input-group-text">이메일 &nbsp;</span>
+       <input type="text" name="memberEmail"> <br>
+        </div>
+<div class="input-group my-2">
+        <span class="input-group-text">비밀번호</span>
+        <input type="text" maxlangth="16" name="memberPassword"> <br>
+        </div>
+<div class="input-group my-2">
+          <input type="submit" value="로그인" class="form-control btn btn-Success mb-3">
+                </div>
 </form>
+ </div>
+  </div>
+ </div>
 <%@include file="component/footer.jsp"%>
 
 </body>
