@@ -40,21 +40,22 @@ public class BoardController {
         public String findAll(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
                               @RequestParam(value = "q", required = false, defaultValue = "") String q,
                               @RequestParam(value = "type", required = false, defaultValue = "boardTitle") String type,
-                              Model model) {
+                              @RequestParam(value = "ord", required = false, defaultValue = "id") String ord,
+                                Model model) {
             // 검색이든 아니든 필요한 정보: boardList, paging
             List<BoardDTO> boardDTOList = null;
             PageDTO pageDTO = null;
             if (q.equals("order")) {
-                boardDTOList = boardService.pagingList2(page);
+                boardDTOList = boardService.pagingList(page,ord);
                 pageDTO = boardService.pageNumber(page);
 
               } else if(q.equals("")) {
                 // 일반 페이지 요청
-                boardDTOList = boardService.pagingList(page);
+                boardDTOList = boardService.pagingList(page,ord);
                 pageDTO = boardService.pageNumber(page);
              } else {
                 // 검색결과 페이지 요청
-                boardDTOList = boardService.searchList(q, type, page);
+                boardDTOList = boardService.searchList(q, type, page, ord);
                 pageDTO = boardService.searchPageNumber(q, type, page);
              }
             model.addAttribute("boardList", boardDTOList);
@@ -62,6 +63,7 @@ public class BoardController {
             model.addAttribute("q", q);
             model.addAttribute("type", type);
             model.addAttribute("page", page);
+            model.addAttribute("ord", ord);
             return "boardList";
         }
 

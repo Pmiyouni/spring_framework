@@ -31,7 +31,7 @@ public class BoardRepository {
         return sql.selectList("Board.findAll");
     }
 
-    public List<BoardDTO> pagingList(Map<String, Integer> pagingParams) {
+    public List<BoardDTO> pagingList(Map<String, Object> pagingParams) {
         return sql.selectList("Board.pagingList", pagingParams);
     }
 

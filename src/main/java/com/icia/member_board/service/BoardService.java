@@ -106,19 +106,21 @@ public class BoardService {
         return pageDTO;
     }
 
-    public List<BoardDTO> pagingList(int page) {
+    public List<BoardDTO> pagingList(int page, String ord) {
         int pageLimit = 5; // 한페이지당 보여줄 글 갯수
         int pagingStart = (page - 1) * pageLimit; // 요청한 페이지에 보여줄 첫번째 게시글의 순서
-        Map<String, Integer> pagingParams = new HashMap<>();
+        Map<String, Object> pagingParams = new HashMap<>();
         pagingParams.put("start", pagingStart);
         pagingParams.put("limit", pageLimit);
+        pagingParams.put("ord", ord);
         return boardRepository.pagingList(pagingParams);
     }
 
-    public List<BoardDTO> searchList(String q, String type, int page) {
+    public List<BoardDTO> searchList(String q, String type, int page, String ord) {
         Map<String, Object> searchParam = new HashMap<>();
         searchParam.put("q", q);
         searchParam.put("type", type);
+        searchParam.put("ord", ord);
 
         int pageLimit = 5; // 한페이지당 보여줄 글 갯수
         int pagingStart = (page - 1) * pageLimit; // 요청한 페이지에 보여줄 첫번째 게시글의 순서
