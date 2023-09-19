@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/main.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-     <style>
+    <style>
         #section {
             margin: auto;
         }
@@ -14,26 +14,103 @@
 <body>
 <%@include file="component/header.jsp" %>
 <%@include file="component/nav.jsp" %>
-<div id="section">
-    <form action="/member/save" method="post" enctype="multipart/form-data">
+<div id="section" class="row my-5 justify-content-center">
+    <div class="col-md-4">
+        <h1 class="text-center mb-3">회원가입</h1>
 
-        <input type="text" name="memberEmail" id="member-email" onkeyup="email_dup_check()" placeholder="이메일"> <br>
-        <%-- onkeyup는 눌렀다 뗐을때, onblur는 포커스해제 즉 입력창을 벗어났을때 p 태그에 결과보여줌 --%>
-        <p id="email-dup-check-result"></p>
-        <input type="text" name="memberPassword" placeholder="비밀번호"> <br>
-        <input type="text" name="memberName" placeholder="이름"> <br>
-        <input type="text" name="memberMobile" placeholder="전화번호"> <br>
-        <input type="file" name="memberProfile" multiple> <br>
-        <input type="submit" value="회원가입">
-    </form>
-</div>
-<br>
-<%@include file="component/footer.jsp"%>
+        <form  action="/member/save" method="post" enctype="multipart/form-data" class="card p-3">
+
+            <div class="input-group my-2">
+                <span class="input-group-text">이 &nbsp;메 &nbsp;일</span>
+                <input type="text" class="form-control" name="memberEmail" id="member-email" onkeyup="email_dup_check()" > <br>
+            </div>
+            <p id="email-dup-check-result"></p>
+
+            <div class="input-group my-2">
+                <span class="input-group-text">비밀번호&nbsp;</span>
+                <input type="text" class="form-control" name="memberPassword" id="password"
+                placeholder="영문,숫자,특수문자 조합하여 8자~16자" maxlength="16" onkeyup="pass_check()">
+            </div>
+            <p id="password-check-result"></p>
+
+            <div class="input-group my-2">
+                <span class="input-group-text">이 &nbsp; &nbsp; &nbsp; 름</span>
+                <input type="text" class="form-control" name="memberName">
+            </div>
+            <div class="input-group my-2">
+                <span class="input-group-text">전화번호&nbsp;</span>
+                <input type="text" class="form-control" name="memberMobile" id="m_phoneNum"
+                       placeholder="ooo-oooo-oooo 형식으로 입력하세요"  onkeyup="mobile_check()">
+            </div>
+            <p id="mobile-check-result"></p>
+
+
+            <div class="input-group my-2">
+                <span class="input-group-text">프로필사진</span><br>
+                <input type="file" name="memberProfile" multiple>
+            </div>
+            <div class="text-center mt-3">
+                <input type="submit" class="btn btn-primary" value="회원가입">
+            </div>
+        </form>
+    </div>
+    <br>
+    <%@include file="component/footer.jsp"%>
 </body>
 <script>
-//이메일 입력값을 가져오고
-//입력값을 서버로 전송하고 똑같은 이메일이 있는지 체크한 후
-//사용 가능여부를 이메일 입력창 아래에 표시
+    const pass_check = () => {
+        const pwdCheck= /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/;
+        const password = document.getElementById("password").value;
+        const result = document.getElementById("password-check-result");
+
+
+        if (password == ""){
+            result.innerHTML = "필수정보예요.";
+            result.style.color = "green";
+            result.style.fontSize = "14px";
+            password.focus();
+            return false;
+        }
+        else if (!pwdCheck.test(password)) {
+            result.innerHTML = "비밀번호는 영문+숫자+특수문자 조합하여 8~16자리를 사용해야 합니다";
+            result.style.color = "red"
+            result.style.fontSize = "14px";
+            password.focus();
+            return false;
+        }else {
+            result.innerHTML = "안전한 비밀번호 입니다.입력가능합니다";
+            result.style.color = "blue";
+            result.style.fontSize = "14px";
+            return true;
+        }
+    }
+    const mobile_check = () => {
+        const mobileCheck =/^\d{3}-?\d{3,4}-?\d{4}$/;
+        const m_phoneNum = document.getElementById("m_phoneNum").value;
+        const result = document.getElementById("mobile-check-result");
+
+
+        if (m_phoneNum == ""){
+            result.innerHTML = "필수정보예요.";
+            result.style.color = "green";
+            result.style.fontSize = "14px";
+            m_phoneNum.focus();
+            return false;
+        }
+        else if (!mobileCheck.test(m_phoneNum)) {
+            result.innerHTML = "올바른 휴대전화 형식이 아닙니다";
+            result.style.color = "red";
+            result.style.fontSize = "14px";
+            m_phoneNum.focus();
+            return false;
+        }else {
+            result.innerHTML = "입력가능합니다";
+            result.style.color = "blue";
+            result.style.fontSize = "14px";
+            return true;
+        }
+    }
+
     const email_dup_check = () => {
         const email = document.getElementById("member-email").value;
         const result = document.getElementById("email-dup-check-result");

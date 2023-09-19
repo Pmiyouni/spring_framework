@@ -90,7 +90,7 @@
                         <tr>
                             <td>${comment.commentWriter}</td>
                             <td>${comment.commentContents}</td>
-                            <td>${comment.createdAt}</td>
+                            <td>${comment.createAt}</td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -129,15 +129,13 @@
                     output += "    <tr>\n";
                     output += "        <td>" + res[i].commentWriter + "</td>\n";
                     output += "        <td>" + res[i].commentContents + "</td>\n";
-                    output += "        <td>" + res[i].createdAt + "</td>\n";
+                    output += "        <td>" + res[i].createAt + "</td>\n";
                     output += "    </tr>\n";
                 }
                 output += "</table>";
                 result.innerHTML = output;
-
                 document.getElementById("comment-contents").value = "";
-                document.getElementById("member-id").value = "";
-            },
+               },
             error: function () {
                 console.log("댓글 작성 실패");
             }

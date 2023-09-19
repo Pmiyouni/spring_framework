@@ -66,20 +66,28 @@ public class BoardController {
         }
 
     @GetMapping("/update")
-    public String updateForm(@RequestParam("id") Long id, Model model) {
+    public String updateForm(@RequestParam("id") Long id, Model model) throws IOException {
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
         return "boardUpdate";
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute BoardDTO boardDTO, Model model) {
-        boardService.update(boardDTO);
+    public String update(@ModelAttribute BoardDTO boardDTO, Model model)   {
+        if (boardDTO.getBoardFile().get(0).isEmpty()) {
+            boardDTO.setFileAttached(0);
+            boardService.update(boardDTO);
+        } else {
+            boardDTO.setFileAttached(1);
+            boardService.update(boardDTO);
+            boardService.saveFile2(boardDTO);
+        }
         BoardDTO dto = boardService.findById(boardDTO.getId());
         model.addAttribute("board", dto);
         return "boardDetail";
-
     }
+
+
     @GetMapping("/delete")
     public String delete(@RequestParam("id") Long id) {
         boardService.delete(id);

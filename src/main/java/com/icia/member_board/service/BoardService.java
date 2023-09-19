@@ -164,7 +164,31 @@ public class BoardService {
 
     public void update(BoardDTO boardDTO) {
         boardRepository.update(boardDTO);
+        }
+
+
+
+    public void saveFile2(BoardDTO boardDTO)  {
+        // List<BoardFileDTO> boardFileDTOList = boardRepository.findFile(boardDTO.getId());
+
+        for (MultipartFile boardFile : boardDTO.getBoardFile()) {
+            String originalFilename = boardFile.getOriginalFilename();
+            System.out.println("originalFilename = " + originalFilename);
+            System.out.println(System.currentTimeMillis());
+            String storedFileName = System.currentTimeMillis() + "-" + originalFilename;
+            System.out.println("storedFileName = " + storedFileName);
+
+            BoardFileDTO boardFileDTO = new BoardFileDTO();
+            boardFileDTO.setOriginalFileName(originalFilename);
+            boardFileDTO.setStoredFileName(storedFileName);
+            boardFileDTO.setAid(boardDTO.getId());
+            System.out.println("boardFileDTO = " + boardFileDTO);
+
+            //String savePath = "c:\\spring_img\\" + storedFileName;
+            //boardFile.transferTo(new File(savePath));
+            boardRepository.saveFile2(boardFileDTO);
     }
+}
 
     public void delete(Long id) {
         boardRepository.delete(id);

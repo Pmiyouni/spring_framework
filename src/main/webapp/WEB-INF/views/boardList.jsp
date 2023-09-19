@@ -5,6 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
      <link rel="stylesheet" href="/resources/css/main.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <style>
             table {
                 margin: auto;
@@ -26,6 +27,7 @@
                    <option value="boardWriter">작성자</option>
                </select>
                <input type="text" name="q" placeholder="검색어를 입력하세요">
+
                <input type="submit" value="검색">
            </form>
        </div>
@@ -49,6 +51,7 @@
                     <td>${board.boardWriter}</td>
                     <td>${board.createdAt}</td>
                     <td>${board.boardHits}</td>
+
                 </tr>
             </c:forEach>
         </table>

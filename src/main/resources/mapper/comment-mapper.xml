@@ -9,7 +9,9 @@
     </insert>
 
     <select id="findAll" parameterType="Long" resultType="comment">
-        select *  from comment_data_table where boardId = #{boardId} order by id desc
+        select id, commentWriter, commentContents,
+               date_format(createAt, "%y-%m-%d %H:%i:%s") as createAt, boardId,cid
+        from comment_data_table where boardId = #{boardId} order by id desc
     </select>
 
     <delete id="commentDelete" parameterType="Long">

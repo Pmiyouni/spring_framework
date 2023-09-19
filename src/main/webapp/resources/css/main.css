@@ -1,3 +1,15 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'GmarketSansMedium';
+}
 .menu {
     display: flex;
     align-items: center;
@@ -19,11 +31,6 @@ td {
 /* menu-item 클래스가 적용된 요소 내부의 a 태그 요소 */
 .menu-item a {
     text-decoration: none;
-    /* a태그는 기본적으로 inline 요소
-        inline 요소는 높이, 너비를 가질 수 없음.
-        높이, 너비를 가지려면 block 요소여야 함.
-        아래 문법은 block요소로 하는 방법임.
-     */
     display: block;
     padding: 10px;
     color: white;

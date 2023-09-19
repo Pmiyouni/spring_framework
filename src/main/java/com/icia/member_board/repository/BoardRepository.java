@@ -73,4 +73,10 @@ public class BoardRepository {
     public List<BoardDTO> pagingList2(Map<String, Integer> pagingParams) {
         return sql.selectList("Board.pagingList2", pagingParams);
     }
+
+    public void saveFile2(BoardFileDTO boardFileDTO) {
+        sql.update("Board.saveFile2", boardFileDTO);
+    }
+
+
 }
