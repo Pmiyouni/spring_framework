@@ -25,6 +25,7 @@
                 <td>이메일</td>
                 <td>이름</td>
                  <td>전화번호</td>
+                <td>비고</td>
                 <td>조회</td>
                  <td>삭제</td>
             </tr>
@@ -35,8 +36,15 @@
                     <td>${member.memberName}</td>
                     <td>${member.memberMobile}</td>
                     <td>
-                    <button class="btn btn-info" onclick="detail_fn('${member.id}')">조회</button>
-                     </td>
+                        <c:if test="${member.mstatus == 1}">
+                            탈퇴회원
+                        </c:if>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-info" onclick="detail_fn('${member.id}')">조회</button>
+                    </td>
+
                     <td>
                         <button class="btn btn-danger" onclick="delete_fn('${member.id}')">삭제</button>
                     </td>

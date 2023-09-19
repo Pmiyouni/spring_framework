@@ -47,4 +47,9 @@ public class MemberRepository {
     public ProfileDTO findFile(Long id) {
         return sql.selectOne("Member.findFile", id);
     }
-}
+
+    public void remove(Long id) {
+                  sql.update("Member.remove", id);
+    }
+
+    }

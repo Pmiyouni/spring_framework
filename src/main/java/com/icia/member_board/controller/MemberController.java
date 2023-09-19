@@ -110,6 +110,14 @@ public class MemberController {
         commentService.commentDelete(id);
         return "redirect:/member/members";
     }
+    @GetMapping("/remove")
+    public String remove(@RequestParam("id") Long id) {
+        System.out.println("remove");
+        memberService.remove(id);
+        boardService.boardDelete(id);
+        commentService.commentDelete(id);
+        return "redirect:/member/logout";
+    }
 
     @GetMapping("/mypage")
     public String updateForm(HttpSession session, Model model) {
@@ -127,6 +135,7 @@ public class MemberController {
             ProfileDTO profile =memberService.findFile(memberDTO.getId());
             model.addAttribute("profile", profile);
         }
+        memberService.update(memberDTO);
         return "memberDetail";
     }
 }

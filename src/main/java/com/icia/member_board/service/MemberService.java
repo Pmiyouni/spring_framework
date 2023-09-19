@@ -96,4 +96,7 @@ public class MemberService {
         return memberRepository.findFile(id);
     }
 
+    public void remove(Long id) {
+        memberRepository.remove(id);
+    }
 }

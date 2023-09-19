@@ -12,17 +12,17 @@
         select * from member_data_table where memberEmail=#{memberEmail}
     </select>
     <select id="login" parameterType="member" resultType="member">
-        select * from member_data_table where memberEmail=#{memberEmail} and memberPassword=#{memberPassword}
+        select * from member_data_table where memberEmail=#{memberEmail} and memberPassword=#{memberPassword} and mstatus = 0
     </select>
     <insert id="saveFile" parameterType="profile">
         insert into profile_table(originalFileName, storedFileName, pid)
         values (#{originalFileName}, #{storedFileName}, #{pid})
     </insert>
     <select id="findAll" resultType="member">
-        select * from member_data_table order by id desc
+        select * from member_data_table  where memberEmail!='admin' and memberPassword !='admin' order by id desc
     </select>
     <select id="findById" parameterType="Long" resultType="member">
-        select * from member_data_table where id=#{id}
+        select * from member_data_table where id=#{id} and mstatus = 0
     </select>
     <delete id="delete" parameterType="Long">
         delete from member_data_table where id=#{id}
@@ -30,4 +30,12 @@
     <select id="findFile" parameterType="Long" resultType="profile">
         select * from profile_table where id = #{id}
     </select>
+    <update id="update" parameterType="member">
+        update member_data_table set memberName=#{memberName}, memberMobile=#{memberMobile}
+                                     where id = #{id}
+    </update>
+    <update id="remove" parameterType="Long">
+        update member_data_table set mstatus = "1" where id = #{id}
+    </update>
+
 </mapper>
