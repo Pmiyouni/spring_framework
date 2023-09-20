@@ -26,17 +26,7 @@ public class BoardService {
     private CommentRepository commentRepository;
 
     public void save(BoardDTO boardDTO, Long memberId1) throws IOException {
-        /*
-            - 파일 있다.
-            1. fileAttached=1, board_table에 저장 후 id값 받아오기
-            2. 파일원본 이름 가져오기
-            3. 저장용 이름 만들기
-            4. 파일 저장용 폴더에 파일 저장 처리
-            5. board_file_table에 관련 정보 저장
 
-            - 파일 없다.
-                fileAttached=0, 나머지는 기존 방식과 동일
-         */
 
         //MemberDTO memberDTO1 =memberRepository.findByMemberEmail(loginEmail1);
         boardDTO.setWid(memberId1);
@@ -44,7 +34,6 @@ public class BoardService {
         if (boardDTO.getBoardFile().get(0).isEmpty()) {
             // 파일 없다.
             boardDTO.setFileAttached(0);
-
             boardRepository.save(boardDTO);
 
         } else {
@@ -158,7 +147,6 @@ public class BoardService {
 
     public BoardDTO findById(Long id) {
         BoardDTO boardDTO = boardRepository.findById(id);
-        System.out.println("boardDTO  service findbyid= " + boardDTO);
         return boardDTO;
 
     }
@@ -182,7 +170,6 @@ public class BoardService {
             boardFileDTO.setOriginalFileName(originalFilename);
             boardFileDTO.setStoredFileName(storedFileName);
             boardFileDTO.setAid(boardDTO.getId());
-            System.out.println("boardFileDTO = " + boardFileDTO);
 
             //String savePath = "c:\\spring_img\\" + storedFileName;
             //boardFile.transferTo(new File(savePath));
@@ -222,6 +209,14 @@ public class BoardService {
         pagingParams.put("limit", pageLimit);
         return boardRepository.pagingList2(pagingParams);
     }
+    public int findCnt(Long fid){
+        int fcnt =boardRepository.findCnt(fid);
+        return fcnt;
+    }
 
+    public int notfindCnt(Long nid) {
+        int ncnt =boardRepository.notfindCnt(nid);
+        return ncnt;
+    }
 }
 

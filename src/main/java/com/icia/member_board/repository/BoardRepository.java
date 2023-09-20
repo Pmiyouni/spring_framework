@@ -17,7 +17,6 @@ public class BoardRepository {
 
     public BoardDTO save(BoardDTO boardDTO ) {
         sql.insert("Board.save", boardDTO);
-        System.out.println("insert 후 boardDTO = " + boardDTO);
         return boardDTO;
     }
     public void saveFile(BoardFileDTO boardFileDTO)
@@ -80,5 +79,12 @@ public class BoardRepository {
     }
 
 
-
+    public int findCnt(Long fid) {
+        return sql.selectOne("Favorite.fcountid",fid);
     }
+
+    public int notfindCnt(Long nid) {
+        return sql.selectOne("Favorite.notfcountid",nid);
+    }
+}
+

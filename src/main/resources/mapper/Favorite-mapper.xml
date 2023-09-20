@@ -23,5 +23,10 @@
     <select id="ckcount2" parameterType="notfavorite" resultType="int">
         select count(*) from notfavorite_table where nid=#{nid} and npass=#{npass}
     </select>
-
+     <select id="fcountid" parameterType="Long" resultType="int">
+        select count(*) from favorite_table where fid=#{fid}
+    </select>
+    <select id="notfcountid" parameterType="Long" resultType="int">
+        select count(*) from notfavorite_table where nid=#{nid}
+    </select>
 </mapper>

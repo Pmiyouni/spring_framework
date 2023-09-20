@@ -3,6 +3,7 @@ package com.icia.member_board.controller;
 import com.icia.member_board.dto.*;
 import com.icia.member_board.service.BoardService;
 import com.icia.member_board.service.CommentService;
+import com.icia.member_board.service.FavoriteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,8 @@ public class BoardController {
         private CommentService commnetService;
 
 
+
+
         @GetMapping("/save")
         public String saveForm() {
             return "boardSave";
@@ -30,7 +33,6 @@ public class BoardController {
         public String save(@ModelAttribute BoardDTO boardDTO, HttpSession session) throws IOException {
             Long memberId1 = (Long)session.getAttribute("memberId");
             System.out.println(memberId1);
-            System.out.println("boardDTO controller = " + boardDTO);
             boardService.save(boardDTO,memberId1);
             return "redirect:/board/list";
         }
@@ -71,6 +73,7 @@ public class BoardController {
     public String updateForm(@RequestParam("id") Long id, Model model) throws IOException {
         BoardDTO boardDTO = boardService.findById(id);
         model.addAttribute("board", boardDTO);
+
         return "boardUpdate";
     }
 

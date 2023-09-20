@@ -45,9 +45,9 @@ public class MemberController {
     public ResponseEntity duplicateCheck(@RequestParam("memberEmail") String memberEmail) {
         MemberDTO memberDTO = memberService.findByMemberEmail(memberEmail);
         if (memberDTO == null) {
-            return new ResponseEntity<>(HttpStatus.OK); // http status code 200
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.CONFLICT); //409, 충돌
+            return new ResponseEntity<>(HttpStatus.CONFLICT); 
         }
 
     }
@@ -121,6 +121,7 @@ public class MemberController {
         return "memberDetail";
     }
 
+    //삭제
     @GetMapping("/delete")
     public String delete(@RequestParam("id") Long id) {
         memberService.delete(id);
@@ -128,9 +129,10 @@ public class MemberController {
         commentService.commentDelete(id);
         return "redirect:/member/members";
     }
+
+   //회원탈퇴
     @GetMapping("/remove")
     public String remove(@RequestParam("id") Long id) {
-        System.out.println("remove");
         memberService.remove(id);
         boardService.boardDelete(id);
         commentService.commentDelete(id);

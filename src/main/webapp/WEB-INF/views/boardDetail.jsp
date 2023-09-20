@@ -6,9 +6,7 @@
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/main.css">
      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-
-    <style>
+     <style>
     table {
                         margin: auto;
                     }
@@ -50,7 +48,7 @@
         </tr>
         <c:if test="${board.fileAttached == 1}">
             <tr>
-                <th>image</th>
+                <th>첨부파일</th>
                 <td>
                     <c:forEach items="${boardFileList}" var="boardFile">
                         <img src="${pageContext.request.contextPath}/upload/${boardFile.storedFileName}"
@@ -68,7 +66,7 @@
                 4.498 0 0 1 7.965 13a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .548-.736h.005l.017.005.067.015.252.055c.215.046.515.108.857.169.693.124
                 1.522.242 2.152.242.63 0 1.46-.118 2.152-.242a26.58 26.58 0 0 0 1.109-.224l.067-.015.017-.004.005-.002zm-.07-5.448c1.397-.864 3.543 1.838-.953 3.434-3.067-3.554.19-4.858.952-3.434z"/>
             </svg>
-    	<span id="fcnt"> </span>
+    	<span id="fcnt-result">  </span>
    	</div>
         <div class="col text-start"  style=" height: auto; width: 300px;">
             <button  class="btn btn-outline-warning" id="count2"> 싫어요!! 클릭</button>
@@ -76,7 +74,7 @@
               <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm-2.715 5.933a.5.5 0 0 1-.183-.683A4.498 4.498
                0 0 1 8 9.5a4.5 4.5 0 0 1 3.898 2.25.5.5 0 0 1-.866.5A3.498 3.498 0 0 0 8 10.5a3.498 3.498 0 0 0-3.032 1.75.5.5 0 0 1-.683.183zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z"/>
           </svg>
-            <span id="ncnt"> </span>
+            <span id="ncnt-result"> </span>
         </div>
     <br>
     <br>
@@ -145,7 +143,7 @@
             },
             success: function(res) {
                 console.log("리턴값: ", res);
-                let output = "<table id=\"comment-list\">\n" +
+                let output = "<table  id=\"comment-list\">\n" +
                     "    <tr>\n" +
                     "        <th>작성자</th>\n" +
                     "        <th>내용</th>\n" +
@@ -187,7 +185,7 @@
         $("#count").on("click",  function(){
 
             const fid = '${board.id}'
-            const result = document.getElementById("fcnt");
+            const result = document.getElementById("fcnt-result");
             if(confirm("좋아요! 추가하실래요?")){
                 $.ajax({
                     type:"get",
@@ -196,8 +194,7 @@
                         fid : fid
                     },
                     success:function(data){
-                    alert(data);
-                        if(data.ckcnt != 1) {
+                        if(data.ckcnt !== 1) {
                             alert("좋아요 중복체크 불가")
                         }
                             result.innerHTML = data.fcnt;
@@ -210,7 +207,7 @@
         //싫어요 추가
     $("#count2").on("click", function(){
          const nid = '${board.id}';
-        const result = document.getElementById("ncnt");
+        const result = document.getElementById("ncnt-result");
 		if(confirm("싫어요! 추가하실래요?")){
 		$.ajax({
         					type:"get",
@@ -219,7 +216,7 @@
         					nid : nid
         					},
         					success:function(data){
-        						if(data.ckcnt2 != 1) {
+        						if(data.ckcnt2 !== 1) {
                                     alert("싫어요 중복체크 불가");
                                 }
                                     result.innerHTML = data.ncnt;

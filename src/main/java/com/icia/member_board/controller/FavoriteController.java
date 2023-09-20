@@ -32,7 +32,6 @@ public class FavoriteController {
     public ResponseEntity insert(@RequestParam("fid") Long fid,
                          HttpSession session) {
         String upass = (String)session.getAttribute("loginEmail");
-        System.out.println("upass = " + upass);
         FavoriteDTO favoriteDTO = new FavoriteDTO();
         favoriteDTO.setFid(fid);
         favoriteDTO.setUpass(upass);
@@ -42,8 +41,6 @@ public class FavoriteController {
         }
         favoriteDTO.setFcnt(favoriteService.fcount(favoriteDTO));
         favoriteDTO.setCkcnt( favoriteService.ckcount(favoriteDTO));
-
-        System.out.println("favoriteDTO = " + favoriteDTO);
         return new ResponseEntity<>(favoriteDTO, HttpStatus.OK);
         }
 
@@ -58,10 +55,10 @@ public class FavoriteController {
         if(ckcnt2 == 0) {
             favoriteService.insert2(notfavoriteDTO);
         }
-
         notfavoriteDTO.setNcnt(favoriteService.ncount(notfavoriteDTO));
         notfavoriteDTO.setCkcnt2( favoriteService.ckcount2(notfavoriteDTO));
         return new ResponseEntity<>(notfavoriteDTO, HttpStatus.OK);
     }
+
     }
 

@@ -23,7 +23,6 @@ public class MemberService {
         if (memberDTO.getMemberProfile().isEmpty()) {
             memberDTO.setFileAttached(0);
              memberRepository.save(memberDTO);
-             System.out.println("memberDTO = " + memberDTO);
         } else {
             memberDTO.setFileAttached(1);
             MemberDTO saveMember= memberRepository.save(memberDTO);

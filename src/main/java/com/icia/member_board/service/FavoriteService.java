@@ -39,4 +39,6 @@ public class FavoriteService {
         int ckcnt2 = favoriteRepository.ckcount2(notfavoriteDTO);
         return ckcnt2;
     }
+
+
 }
