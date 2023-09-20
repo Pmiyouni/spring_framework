@@ -1,6 +1,7 @@
 package com.icia.member_board.service;
 
 import com.icia.member_board.dto.FavoriteDTO;
+import com.icia.member_board.dto.NotfavoriteDTO;
 import com.icia.member_board.repository.FavoriteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,18 @@ public class FavoriteService {
         return ckcnt;
     }
 
-    public void delete(FavoriteDTO favoriteDTO) {
-        favoriteRepository.delete(favoriteDTO);
+
+    public void insert2(NotfavoriteDTO notfavoriteDTO) {
+        favoriteRepository.insert2(notfavoriteDTO);
+    }
+
+    public int ncount(NotfavoriteDTO notfavoriteDTO) {
+        int ncnt = favoriteRepository.ncount(notfavoriteDTO);
+        return ncnt;
+    }
+
+    public int ckcount2(NotfavoriteDTO notfavoriteDTO) {
+        int ckcnt2 = favoriteRepository.ckcount2(notfavoriteDTO);
+        return ckcnt2;
     }
 }

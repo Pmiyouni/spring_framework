@@ -2,6 +2,7 @@ package com.icia.member_board.repository;
 
 import com.icia.member_board.dto.BoardDTO;
 import com.icia.member_board.dto.BoardFileDTO;
+import com.icia.member_board.dto.FavoriteDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -79,4 +80,5 @@ public class BoardRepository {
     }
 
 
-}
+
+    }

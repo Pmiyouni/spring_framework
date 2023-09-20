@@ -6,10 +6,7 @@
     <link rel="stylesheet" href="/resources/css/bootstrap.min.css">
     <link rel="stylesheet" href="/resources/css/main.css">
      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-     <!-- 부트스트랩 CSS only -->
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-   	<!-- 부트스트랩 JavaScript Bundle with Popper -->
-   	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
 
     <style>
     table {
@@ -21,7 +18,7 @@
 <%@include file="component/header.jsp"%>
 <%@include file="component/nav.jsp"%>
 
-<div class="row" d="section">
+<div class="row" id="section">
 <div class="col">
 
 	<h1 class="text-center">게시글 조회</h1>
@@ -64,12 +61,24 @@
         </c:if>
     </table>
     <div class="row">
-    <div class="col text-center" id="count">
-    <button id="heart" type="button" class="btn btn-danger">좋아요!!</button>
-    						<i id="heart" class="bi bi-suit-heart"></i>
-    						<span id="fcnt"></span>
-    					</div>
-
+    <div class="col text-end"  style=" height: auto; width: 300px;">
+        <button  class="btn btn-outline-info" id="count"> 좋아요!! 클릭</button>
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" id="like" class="bi bi-emoji-heart-eyes-fill" viewBox="0 0 16 16">
+                <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zM4.756 4.566c.763-1.424 4.02-.12.952 3.434-4.496-1.596-2.35-4.298-.952-3.434zm6.559 5.448a.5.5 0 0 1 .548.736A4.498
+                4.498 0 0 1 7.965 13a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .548-.736h.005l.017.005.067.015.252.055c.215.046.515.108.857.169.693.124
+                1.522.242 2.152.242.63 0 1.46-.118 2.152-.242a26.58 26.58 0 0 0 1.109-.224l.067-.015.017-.004.005-.002zm-.07-5.448c1.397-.864 3.543 1.838-.953 3.434-3.067-3.554.19-4.858.952-3.434z"/>
+            </svg>
+    	<span id="fcnt"> </span>
+   	</div>
+        <div class="col text-start"  style=" height: auto; width: 300px;">
+            <button  class="btn btn-outline-warning" id="count2"> 싫어요!! 클릭</button>
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" id="notlike" class="bi bi-emoji-frown-fill" viewBox="0 0 16 16">
+              <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm-2.715 5.933a.5.5 0 0 1-.183-.683A4.498 4.498
+               0 0 1 8 9.5a4.5 4.5 0 0 1 3.898 2.25.5.5 0 0 1-.866.5A3.498 3.498 0 0 0 8 10.5a3.498 3.498 0 0 0-3.032 1.75.5.5 0 0 1-.683.183zM10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8z"/>
+          </svg>
+            <span id="ncnt"> </span>
+        </div>
+    <br>
     <br>
     <div class="text-center">
     <c:if test="${board.boardWriter == sessionScope.loginEmail}">
@@ -88,10 +97,11 @@
         <input type="text" id="comment-contents" size="30" placeholder="내용 입력"><br>
          <button class="btn btn-primary" onclick="comment_write()">댓글작성</button>
     </div>
+
     <div id="comment-list-area" class="text-center mt-5">
         <c:choose>
             <c:when test="${commentList == null}">
-                <h3>작성된 댓글이 없습니다.</h3>
+              <br>  <h4>작성된 댓글이 없습니다.</h4>
             </c:when>
             <c:otherwise>
                 <table id="comment-list">
@@ -111,6 +121,8 @@
             </c:otherwise>
         </c:choose>
     </div>
+</div>
+</div>
 </div>
 </body>
 <script>
@@ -172,55 +184,48 @@
 
 
     //좋아요 추가
-    $("#count").on("click", ".btn btn-danger", function(){
-         const fid = '${board.id}';
-         const uid = '${board.wid}';
-		if(confirm("좋아요! 추가하실래요?")){
+        $("#count").on("click",  function(){
+
+            const fid = '${board.id}'
+            const result = document.getElementById("fcnt");
+            if(confirm("좋아요! 추가하실래요?")){
+                $.ajax({
+                    type:"get",
+                    url:"/favorite/like",
+                    data:{
+                        fid : fid
+                    },
+                    success:function(data){
+                    alert(data);
+                        if(data.ckcnt != 1) {
+                            alert("좋아요 중복체크 불가")
+                        }
+                            result.innerHTML = data.fcnt;
+                    }
+                });
+            }
+        });
+
+
+        //싫어요 추가
+    $("#count2").on("click", function(){
+         const nid = '${board.id}';
+        const result = document.getElementById("ncnt");
+		if(confirm("싫어요! 추가하실래요?")){
 		$.ajax({
         					type:"get",
-        					url:"/favorite/insert",
+        					url:"/favorite/notlike",
         					data:{
-        					fid : fid,
-        					uid : uid
+        					nid : nid
         					},
         					success:function(data){
-        						if(data.ckcnt != 0){
-        						alert(data);
-
-                             	$("#heart").addClass("bi-suit-heart-fill");
-                            	}else{
-                            	alert("좋아요 중복채크 불가!!");
-                            	}
-                            	$("#fcnt").html(data.fcnt);
-        					}
+        						if(data.ckcnt2 != 1) {
+                                    alert("싫어요 중복체크 불가");
+                                }
+                                    result.innerHTML = data.ncnt;
+                                }
         				});
         			}
-        		}
         	});
-
- //좋아요 삭제
-    $("#count").on("click", ".btn btn-danger", function(){
-         const fid = '${board.id}';
-         const uid = '${board.wid}';
-		if(confirm("좋아요! 삭제하실래요?")){
-		$.ajax({
-        					type:"get",
-        					url:"/favorite/delete",
-        					data:{
-        					fid : fid,
-        					uid : uid
-        					},
-        					success:function(data){
-        						if(data.ckcnt == 0){
-                            	$("#heart").removeClass("bi-suit-heart-fill").addClass("bi-suit-heart");
-                                 	}
-                            	$("#fcnt").html(data.fcnt);
-        					}
-        				});
-        			}
-        		}
-        	});
-
-
 </script>
 </html>
