@@ -9,5 +9,6 @@
         <typeAlias type="com.icia.member_board.dto.BoardFileDTO" alias="boardfile"></typeAlias>
         <typeAlias type="com.icia.member_board.dto.CommentDTO" alias="comment"></typeAlias>
         <typeAlias type="com.icia.member_board.dto.FavoriteDTO" alias="favorite"></typeAlias>
+        <typeAlias type="com.icia.member_board.dto.NotfavoriteDTO" alias="notfavorite"></typeAlias>
     </typeAliases>
 </configuration>

@@ -22,7 +22,7 @@
         select * from member_data_table  where memberEmail!='admin' and memberPassword !='admin' order by id desc
     </select>
     <select id="findById" parameterType="Long" resultType="member">
-        select * from member_data_table where id=#{id} and mstatus = 0
+        select * from member_data_table where id=#{id}
     </select>
     <delete id="delete" parameterType="Long">
         delete from member_data_table where id=#{id}

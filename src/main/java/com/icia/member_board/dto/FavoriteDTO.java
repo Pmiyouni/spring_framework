@@ -8,11 +8,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class FavoriteDTO {
+    private Long id;
     private Long fid; //게시판번호
-    private Long uid; //회원번호
-    private String createdAt; //작성일시
+    private String upass; //회원번호
     private int fcnt; //좋아요수
     private int ckcnt; //사용자 좋아요 체크여부
-
 
 }

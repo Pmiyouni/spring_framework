@@ -2,6 +2,7 @@ package com.icia.member_board.repository;
 
 import com.icia.member_board.dto.BoardDTO;
 import com.icia.member_board.dto.BoardFileDTO;
+import com.icia.member_board.dto.FavoriteDTO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,6 @@ public class BoardRepository {
 
     public BoardDTO save(BoardDTO boardDTO ) {
         sql.insert("Board.save", boardDTO);
-        System.out.println("insert 후 boardDTO = " + boardDTO);
         return boardDTO;
     }
     public void saveFile(BoardFileDTO boardFileDTO)
@@ -79,4 +79,12 @@ public class BoardRepository {
     }
 
 
+    public int findCnt(Long fid) {
+        return sql.selectOne("Favorite.fcountid",fid);
+    }
+
+    public int notfindCnt(Long nid) {
+        return sql.selectOne("Favorite.notfcountid",nid);
+    }
 }
+

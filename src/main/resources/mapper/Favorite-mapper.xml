@@ -4,16 +4,29 @@
 
 
 <mapper namespace="Favorite">
-    <insert id="insert"  parameterType="favorite"  useGeneratedKeys="true" keyProperty="fid">
-        insert into favorite_table(fid,uid) values(#{fid}, #{uid})
+    <insert id="insert"  parameterType="favorite"  useGeneratedKeys="true" keyProperty="id">
+        insert into favorite_table(fid,upass) values(#{fid}, #{upass})
     </insert>
     <select id="fcount" parameterType="favorite" resultType="int">
         select count(*) from favorite_table where fid=#{fid}
     </select>
     <select id="ckcount" parameterType="favorite" resultType="int">
-        select count(*) from favorite_table where fid=#{fid} and uid=#{uid}
+        select count(*) from favorite_table where fid=#{fid} and upass=#{upass}
     </select>
-    <delete id="delete" parameterType="favorite" >
-        delete from favorite_table where fid=#{fid} and uid=#{uid}
-    </delete>
+
+    <insert id="insert2"  parameterType="notfavorite"  useGeneratedKeys="true" keyProperty="id">
+        insert into notfavorite_table(nid,npass) values(#{nid}, #{npass})
+    </insert>
+    <select id="ncount" parameterType="notfavorite" resultType="int">
+        select count(*) from notfavorite_table where nid=#{nid}
+    </select>
+    <select id="ckcount2" parameterType="notfavorite" resultType="int">
+        select count(*) from notfavorite_table where nid=#{nid} and npass=#{npass}
+    </select>
+     <select id="fcountid" parameterType="Long" resultType="int">
+        select count(*) from favorite_table where fid=#{fid}
+    </select>
+    <select id="notfcountid" parameterType="Long" resultType="int">
+        select count(*) from notfavorite_table where nid=#{nid}
+    </select>
 </mapper>

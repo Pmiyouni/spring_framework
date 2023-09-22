@@ -16,10 +16,10 @@
 <body>
 <%@include file="component/header.jsp" %>
 <%@include file="component/nav.jsp" %>
-<h2 align="center">회원 상세 조회 </h2>
+<h2 class="text-center">회원 상세 조회 </h2>
 <div class="container">
     <div id="member-detail">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-info">
             <tr>
                 <td>회원번호</td>
                 <td>이메일</td>
