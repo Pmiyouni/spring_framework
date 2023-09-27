@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'GmarketSansMedium';
+}
+.menu {
+    display: flex;
+    align-items: center;
+    background-color: black;
+}
+
+.menu-item {
+    list-style-type: none;
+    margin-left: 20px;
+}
+
+th {
+  text-align: center;
+}
+td {
+  text-align: center;
+}
+
+/* menu-item 클래스가 적용된 요소 내부의 a 태그 요소 */
+.menu-item a {
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.menu-item a:hover {
+    background-color: gray;
+}
+
+#login-area {
+    display: flex;
+    align-items: center;
+    color: yellow;
+}
+
+
+
+
+
+
